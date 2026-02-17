@@ -15,6 +15,7 @@ body{
   background:black;
 }
 
+/* 🌌 Fondo */
 body::before{
   content:"";
   position:fixed;
@@ -26,17 +27,18 @@ body::before{
   z-index:-3;
 }
 
+/* ✨ Título */
 h1{
   font-size:42px;
   margin-top:25px;
   animation: glow 2s infinite alternate;
 }
-
 @keyframes glow{
   from{ text-shadow:0 0 10px #ff4da6;}
   to{ text-shadow:0 0 25px #a29bfe;}
 }
 
+/* 🎂 Cuenta regresiva */
 #birthdayCountdown{
   margin-top:10px;
   font-size:18px;
@@ -47,6 +49,21 @@ h1{
   box-shadow:0 0 15px #6c5ce7;
 }
 
+/* ❤️ CORAZONES FLOTANDO */
+.heart{
+  position:fixed;
+  bottom:-30px;
+  font-size:20px;
+  animation: floatUp linear forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  0%{ transform:translateY(0) scale(1); opacity:1;}
+  100%{ transform:translateY(-110vh) scale(1.5); opacity:0;}
+}
+
+/* 📦 Cards */
 .card{
   background:rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
@@ -63,12 +80,12 @@ h1{
   border-radius:15px;
 }
 
-/* 🎵 MINI PLAYER */
+/* 🎵 Mini Player */
 #musicPopup{
   position:fixed;
   bottom:15px;
   right:15px;
-  width:220px;
+  width:230px;
   background:#111;
   border-radius:15px;
   padding:12px;
@@ -92,13 +109,11 @@ h1{
   margin-top:8px;
   overflow:hidden;
 }
-
 #progressBar{
   height:100%;
   width:0%;
   background:#a29bfe;
 }
-
 #timeDisplay{
   font-size:11px;
   margin-top:5px;
@@ -114,13 +129,12 @@ button{
   margin:6px;
   transition:0.3s;
 }
-
 button:hover{
   transform:scale(1.1);
   background:#a29bfe;
 }
 
-/* 🔐 POPUP SECRETO */
+/* 🔐 Popup secreto */
 #secretPopup{
   position:fixed;
   inset:0;
@@ -135,12 +149,10 @@ button:hover{
   z-index:2000;
   padding:20px;
 }
-
 #secretPopup.active{
   opacity:1;
   visibility:visible;
 }
-
 #secretPopup img{
   width:80%;
   max-width:400px;
@@ -156,8 +168,7 @@ button:hover{
 
 <div class="card">
 <p>
-Desde que llegaste, todo tiene más color y más sentido.
-Eres mi persona favorita en todos los universos 💖
+Eres mi caos favorito, mi risa asegurada y la razón por la que sonrío como idiota mirando el celular 💖
 </p>
 </div>
 
@@ -177,11 +188,33 @@ Eres mi persona favorita en todos los universos 💖
 </div>
 
 <div class="card">
+<h2>😂 Quiz del Amor (versión objetiva según Ricardo)</h2>
+
+<p>¿Quién tuvo la mejor idea al empezar esta relación?</p>
+<button onclick="quiz(1,'Estefany')">Estefany</button>
+<button onclick="quiz(1,'Ricardo')">Ricardo</button>
+
+<p>¿Quién es el más inteligente científicamente comprobado?</p>
+<button onclick="quiz(2,'Estefany')">Estefany</button>
+<button onclick="quiz(2,'Ricardo')">Ricardo</button>
+
+<p>¿Quién cocina mejor?</p>
+<button onclick="quiz(3,'Estefany')">Estefany</button>
+<button onclick="quiz(3,'Ricardo')">Ricardo</button>
+
+<p>¿Quién ama más intensamente?</p>
+<button onclick="quiz(4,'Estefany')">Estefany</button>
+<button onclick="quiz(4,'Ricardo')">Ricardo</button>
+
+<div id="quizResult"></div>
+</div>
+
+<div class="card">
 <h2>🔐 Mensaje Secreto</h2>
 <button onclick="openSecret()">Descubrir 💌</button>
 </div>
 
-<!-- POPUP SECRETO -->
+<!-- Popup secreto -->
 <div id="secretPopup">
 <img src="https://images7.memedroid.com/images/UPLOADED207/6022cb61ec131.jpeg">
 <p style="max-width:500px;">
@@ -190,17 +223,12 @@ Te quiero bien limpiecita bb que la lengua mia no te la sacan de esos cachetes �
 <button onclick="closeSecret()">Cerrar</button>
 </div>
 
-<!-- MINI PLAYER -->
+<!-- Mini Player -->
 <div id="musicPopup">
 <img src="https://t2.genius.com/unsafe/344x344/https%3A%2F%2Fimages.genius.com%2Fabe185baf2b9fd84ebb5d493ffe715b3.1000x1000x1.png">
 <p>Reproduciendo nuestra canción 💖</p>
-
-<div id="progressContainer">
-  <div id="progressBar"></div>
-</div>
-
+<div id="progressContainer"><div id="progressBar"></div></div>
 <div id="timeDisplay">0:00 / 0:00</div>
-
 <button onclick="closePopup()">✖</button>
 </div>
 
@@ -210,7 +238,20 @@ frameborder="0" allow="autoplay"></iframe>
 
 <script>
 
-/* Tiempo juntos */
+/* ❤️ Corazones */
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(15+Math.random()*20)+"px";
+  heart.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,400);
+
+/* ⏳ Tiempo juntos */
 const startDate=new Date("2024-11-09");
 function updateCounter(){
   const now=new Date();
@@ -221,8 +262,8 @@ function updateCounter(){
 }
 updateCounter();
 
-/* Cuenta regresiva */
-const birthday=new Date("2026-11-09");
+/* 🎂 Cuenta regresiva actualizada */
+const birthday=new Date("2026-02-18");
 function updateBirthday(){
   const now=new Date();
   const diff=birthday-now;
@@ -235,58 +276,81 @@ function updateBirthday(){
 }
 setInterval(updateBirthday,1000);
 
-/* 🎵 YOUTUBE PLAYER CON BARRA REAL */
-let player, playing=false, progressInterval;
-
+/* 🎵 YouTube barra sincronizada */
+let player, interval;
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
 
 function onYouTubeIframeAPIReady(){
   player=new YT.Player('ytplayer',{
-    events:{ 'onStateChange': onPlayerStateChange }
+    events:{ 'onStateChange': onState }
   });
 }
 
-function onPlayerStateChange(event){
+function onState(event){
   if(event.data==YT.PlayerState.PLAYING){
-    updateProgress();
-    progressInterval=setInterval(updateProgress,1000);
-  }else{
-    clearInterval(progressInterval);
+    interval=setInterval(updateProgress,1000);
+  } else {
+    clearInterval(interval);
   }
 }
 
 function updateProgress(){
   const current=player.getCurrentTime();
   const duration=player.getDuration();
-
   const percent=(current/duration)*100;
   document.getElementById("progressBar").style.width=percent+"%";
-
   document.getElementById("timeDisplay").innerText=
-    formatTime(current)+" / "+formatTime(duration);
+    format(current)+" / "+format(duration);
 }
 
-function formatTime(time){
-  const minutes=Math.floor(time/60);
-  const seconds=Math.floor(time%60);
-  return minutes+":"+(seconds<10?"0":"")+seconds;
+function format(t){
+  const m=Math.floor(t/60);
+  const s=Math.floor(t%60);
+  return m+":"+(s<10?"0":"")+s;
 }
 
 document.getElementById("musicBtn").addEventListener("click",()=>{
-  if(player){
-    player.playVideo();
-    document.getElementById("musicPopup").style.display="block";
-    playing=true;
-  }
+  player.playVideo();
+  document.getElementById("musicPopup").style.display="block";
 });
 
 function closePopup(){
   document.getElementById("musicPopup").style.display="none";
-  if(player){player.pauseVideo();}
+  player.pauseVideo();
 }
 
+/* 😂 Quiz personalizado */
+function quiz(q,p){
+  const r=document.getElementById("quizResult");
+
+  if(q===1){
+    r.innerHTML = p==="Ricardo"
+      ? "Exacto 😌 yo inicié esta joya romántica."
+      : "Casi… pero alguien tenía que dar el primer paso legendario.";
+  }
+
+  if(q===2){
+    r.innerHTML = p==="Ricardo"
+      ? "Confirmado por la NASA, Harvard y mi mamá 😎."
+      : "Inteligente sí… pero no nivel Ricardo 3000.";
+  }
+
+  if(q===3){
+    r.innerHTML = p==="Ricardo"
+      ? "Chef Ricardo estrella Michelin imaginaria ⭐."
+      : "Ella cocina rico… pero Ricardo pone el sazón emocional.";
+  }
+
+  if(q===4){
+    r.innerHTML = p==="Ricardo"
+      ? "Ricardo ama tan fuerte que hizo toda esta ingeniería romántica."
+      : "Ella ama mucho… pero Ricardo hizo despliegue tecnológico premium.";
+  }
+}
+
+/* Popup secreto */
 function openSecret(){
   document.getElementById("secretPopup").classList.add("active");
 }
