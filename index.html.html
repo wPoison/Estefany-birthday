@@ -6,66 +6,47 @@
 <title>Feliz Cumple Estefany ❤️</title>
 
 <style>
+
+/* ====== FONDO GALAXIA ====== */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
   color:white;
   text-align:center;
   overflow-x:hidden;
-  background:black;
+  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
+  background-attachment: fixed;
 }
 
-/* 🌌 GALAXIA */
+/* estrellas */
 body::before{
   content:"";
   position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 30%, #2b1055, transparent 40%),
-    radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
-    radial-gradient(circle at 50% 50%, #000428, #000000 80%);
-  z-index:-3;
-}
-
-canvas{
-  position:fixed;
-  inset:0;
   width:100%;
   height:100%;
-  pointer-events:none; /* 🔥 SOLUCIÓN DEFINITIVA BOTONES */
+  background-image:radial-gradient(white 1px, transparent 1px);
+  background-size:3px 3px;
+  opacity:0.2;
   z-index:-1;
 }
 
-/* 🔥 aseguramos que todo el contenido esté encima */
-body > *{
-  position:relative;
-  z-index:5;
-}
-
 h1{
-  font-size:3em;
+  font-size:2.5em;
   margin-top:40px;
-}
-
-.name{
-  display:inline-block;
-  animation: float3d 4s ease-in-out infinite;
-}
-
-@keyframes float3d{
-  0%,100%{ transform:rotateY(0deg) translateY(0px);}
-  50%{ transform:rotateY(15deg) translateY(-10px);}
+  text-shadow:0 0 15px #fff;
 }
 
 .card{
   background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
   margin:30px auto;
   padding:25px;
   border-radius:20px;
   width:90%;
-  max-width:600px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  max-width:650px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  position:relative;
+  z-index:2;
 }
 
 button{
@@ -74,15 +55,17 @@ button{
   border-radius:30px;
   font-size:16px;
   cursor:pointer;
-  background:#00c6ff;
+  background:#6c5ce7;
   color:white;
-  margin:10px;
+  margin:8px;
   transition:0.3s;
+  position:relative;
+  z-index:3;
 }
 
 button:hover{
   transform:scale(1.1);
-  background:#0072ff;
+  background:#a29bfe;
 }
 
 img{
@@ -91,94 +74,86 @@ img{
   margin-top:20px;
 }
 
-.hidden{display:none}
+.hidden{ display:none; }
 
-/* 🎉 MENSAJE */
-#surprise{
+/* ====== LLUVIA DE CORAZONES ====== */
+.heart{
+  position:fixed;
+  color:#ff4d6d;
+  font-size:20px;
+  animation: fall 6s linear infinite;
+  z-index:1;
+}
+@keyframes fall{
+  0%{ transform:translateY(-100px); opacity:1;}
+  100%{ transform:translateY(100vh); opacity:0;}
+}
+
+/* ====== CONSTELACIÓN ====== */
+.star{
+  position:fixed;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 0 10px white;
+  z-index:1;
+}
+
+/* ====== POPUP MUSICA ====== */
+#musicPopup{
   position:fixed;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:2.5em;
-  background:rgba(0,0,0,0.85);
-  padding:30px;
+  background:#111;
+  padding:25px;
   border-radius:20px;
-  box-shadow:0 0 40px gold;
-  animation: surpriseAnim 4s forwards;
-  z-index:20;
-}
-
-@keyframes surpriseAnim{
-  0%{opacity:0; transform:translate(-50%,-50%) scale(0.5);}
-  20%{opacity:1; transform:translate(-50%,-50%) scale(1.2);}
-  80%{opacity:1;}
-  100%{opacity:0;}
-}
-
-/* 🎵 POPUP */
-#musicPopup{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:260px;
-  background:rgba(0,0,0,0.9);
-  border-radius:20px;
-  padding:15px;
-  box-shadow:0 0 20px #00f7ff;
+  box-shadow:0 0 30px #6c5ce7;
   display:none;
-  z-index:30;
+  z-index:999;
+  width:300px;
 }
 
-#musicPopup img{
+#progressBar{
   width:100%;
-  border-radius:15px;
-}
-
-#closeMusic{
-  position:absolute;
-  top:5px;
-  right:10px;
-  cursor:pointer;
-}
-
-/* 🎵 BARRA 4:12 EXACTOS */
-.progress{
-  width:100%;
-  height:6px;
+  height:8px;
   background:#333;
-  border-radius:10px;
-  margin-top:10px;
+  border-radius:5px;
+  margin-top:15px;
   overflow:hidden;
 }
 
-.progress-bar{
+#progress{
   height:100%;
   width:0%;
-  background:#00c6ff;
-  animation: progressAnim 252s linear forwards; /* 4:12 = 252s */
+  background:#6c5ce7;
 }
 
-@keyframes progressAnim{
-  from{width:0%;}
-  to{width:100%;}
+.closeBtn{
+  position:absolute;
+  top:10px;
+  right:15px;
+  cursor:pointer;
+  font-size:18px;
+  color:white;
 }
 
-iframe{pointer-events:none}
 </style>
 </head>
 <body>
 
-<canvas id="effects"></canvas>
-<div id="surprise">🎉 FELIZ CUMPLE MI UNIVERSO ❤️</div>
-
-<h1>Feliz Cumpleaños <span class="name">Estefany</span> ✨</h1>
+<h1>🎂 Feliz Cumpleaños Mi Amor ❤️</h1>
 
 <div class="card">
-<p>Mi amor por ti es más grande que esta galaxia 💫</p>
+<p>
+Mi pelirroja hermosa… 15 meses demostrando que el amor infinito sí existe ❤️  
+Gracias por ser mi paz, mi caos bonito y mi persona favorita.
+</p>
 </div>
 
 <div class="card">
-<h2>⏳ Nuestro Tiempo Juntos</h2>
+<h2>⏳ Nuestro Tiempo</h2>
 <p id="contador"></p>
 </div>
 
@@ -189,135 +164,149 @@ iframe{pointer-events:none}
 
 <div class="card">
 <h2>🎵 Nuestra Canción</h2>
-<button onclick="toggleMusic()">Activar nuestra música 💖</button>
+<button id="musicBtn">Activar nuestra canción 💖</button>
+</div>
+
+<!-- POPUP MUSICA -->
+<div id="musicPopup">
+<span class="closeBtn" onclick="closePopup()">✖</span>
+<h3>Reproduciendo...</h3>
+<img src="https://i.imgur.com/HFXl8KM.png">
+<p>Perfect - Ed Sheeran ❤️</p>
+<div id="progressBar"><div id="progress"></div></div>
+<p id="time">0:00 / 4:12</p>
+</div>
+
+<div class="card">
+<h2>🎮 Mini Quiz del Amor</h2>
+
+<p>¿Quién ama más?</p>
+<button onclick="alert('Error 404: Yo te amo más ❤️')">Estefany</button>
+<button onclick="alert('Correcto 😎')">Ricardo</button>
+
+<p>¿Quién es más dramática?</p>
+<button onclick="alert('Obviamente tú mi amor 😂')">Estefany</button>
+<button onclick="alert('JAJA buen intento')">Ricardo</button>
+
+<p>¿Quién roba más besos?</p>
+<button onclick="alert('Yo porque soy intenso 😌')">Ricardo</button>
+<button onclick="alert('Los dos porque somos adictos ❤️')">Los dos</button>
+
+<p>¿Quién es el ogro gruñón?</p>
+<button onclick="alert('Yo pero te amo igual 🥹')">Ricardo</button>
+<button onclick="alert('Jamás sería yo 😇')">Estefany</button>
+
 </div>
 
 <div class="card">
 <h2>🔒 Mensaje Secreto</h2>
 <button onclick="revealSecret()">Descubrir</button>
-<p id="secretMessage" class="hidden">
-Te amaré en todas las galaxias, universos y vidas ❤️
+<div id="secretMessage" class="hidden">
+<p>
+Nuestro amor es tranquilo, lleno de risas y abrazos infinitos ❤️
 </p>
+
+<!-- AQUI PUEDES PEGAR LINK IMGUR -->
+<img src="PEGA_AQUI_TU_LINK_IMGUR">
+</div>
 </div>
 
-<!-- 🎵 POPUP -->
-<div id="musicPopup">
-  <span id="closeMusic" onclick="closeMusic()">✖</span>
-  <img src="https://i.imgur.com/HFXl8KM.png">
-  <h3>Die With A Smile 💖</h3>
-  <p>Lady Gaga & Bruno Mars</p>
-  <div class="progress">
-    <div class="progress-bar"></div>
-  </div>
-</div>
-
-<!-- YOUTUBE -->
-<iframe id="ytplayer"
-width="1"
-height="1"
+<!-- YOUTUBE API -->
+<iframe id="ytplayer" width="0" height="0"
 src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
-allow="autoplay">
-</iframe>
+frameborder="0" allow="autoplay"></iframe>
 
 <script>
-/* CONTADOR */
-const inicio=new Date("2024-11-09");
-const contador=document.getElementById("contador");
 
-function actualizarContador(){
-  const ahora=new Date();
-  const diff=ahora-inicio;
-  const d=Math.floor(diff/(1000*60*60*24));
-  const h=Math.floor((diff/(1000*60*60))%24);
-  const m=Math.floor((diff/(1000*60))%60);
-  const s=Math.floor((diff/1000)%60);
-  contador.innerHTML=d+" días, "+h+" horas, "+m+" minutos y "+s+" segundos ❤️";
+/* ===== CONTADOR ===== */
+const inicio = new Date("2024-11-09");
+const contador = document.getElementById("contador");
+setInterval(()=>{
+const ahora = new Date();
+const d = ahora - inicio;
+const dias = Math.floor(d/86400000);
+contador.innerHTML = dias+" días juntos ❤️";
+},1000);
+
+/* ===== CORAZONES ===== */
+setInterval(()=>{
+const heart = document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},400);
+
+/* ===== CONSTELACIÓN ESTEFANY ===== */
+const text="ESTEFANY";
+for(let i=0;i<text.length;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.top=(100+i*10)+"px";
+star.style.left=(50+i*15)+"px";
+document.body.appendChild(star);
 }
-setInterval(actualizarContador,1000);
 
-/* MUSICA */
+/* ===== MUSICA ===== */
 let player;
 let isPlaying=false;
-
-function onYouTubeIframeAPIReady(){
-  player=new YT.Player('ytplayer');
-}
+let progressInterval;
+let currentSeconds=0;
+const totalSeconds=252; // 4:12
 
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
 
-function toggleMusic(){
-  if(player && !isPlaying){
-    player.playVideo();
-    document.getElementById("musicPopup").style.display="block";
-    isPlaying=true;
-  }
+function onYouTubeIframeAPIReady(){
+player=new YT.Player('ytplayer');
 }
 
-function closeMusic(){
-  document.getElementById("musicPopup").style.display="none";
-  if(player){
-    player.pauseVideo();
-    isPlaying=false;
-  }
+document.getElementById("musicBtn").addEventListener("click",()=>{
+if(!isPlaying){
+player.playVideo();
+openPopup();
+startProgress();
+isPlaying=true;
+}else{
+player.pauseVideo();
+}
+});
+
+function openPopup(){
+document.getElementById("musicPopup").style.display="block";
 }
 
+function closePopup(){
+document.getElementById("musicPopup").style.display="none";
+}
+
+function startProgress(){
+currentSeconds=0;
+progressInterval=setInterval(()=>{
+if(currentSeconds<=totalSeconds){
+currentSeconds++;
+let percent=(currentSeconds/totalSeconds)*100;
+document.getElementById("progress").style.width=percent+"%";
+
+let min=Math.floor(currentSeconds/60);
+let sec=currentSeconds%60;
+if(sec<10)sec="0"+sec;
+document.getElementById("time").innerHTML=
+min+":"+sec+" / 4:12";
+}else{
+clearInterval(progressInterval);
+}
+},1000);
+}
+
+/* ===== MENSAJE ===== */
 function revealSecret(){
-  document.getElementById("secretMessage").classList.remove("hidden");
+document.getElementById("secretMessage").classList.remove("hidden");
 }
 
-/* 🌟 EFECTOS + CONSTELACION */
-const canvas=document.getElementById("effects");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-function createHeart(){
-  particles.push({x:Math.random()*canvas.width,y:canvas.height,size:Math.random()*20+10,speed:Math.random()*2+1});
-}
-
-function createFirework(){
-  let x=Math.random()*canvas.width;
-  let y=Math.random()*canvas.height/2;
-  for(let i=0;i<40;i++){
-    particles.push({x:x,y:y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,life:80});
-  }
-}
-
-function drawConstellation(){
-  ctx.fillStyle="white";
-  ctx.font="50px Arial";
-  ctx.fillText("Estefany", canvas.width/2-150, canvas.height*0.2);
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  drawConstellation();
-
-  particles.forEach((p,i)=>{
-    if(p.life){
-      p.x+=p.dx;p.y+=p.dy;p.life--;
-      ctx.fillStyle="gold";
-      ctx.fillRect(p.x,p.y,3,3);
-      if(p.life<=0) particles.splice(i,1);
-    }else{
-      p.y-=p.speed;
-      ctx.font=p.size+"px Arial";
-      ctx.fillText("❤️",p.x,p.y);
-      if(p.y<0) particles.splice(i,1);
-    }
-  });
-
-  requestAnimationFrame(animate);
-}
-
-setInterval(createHeart,600);
-setInterval(createFirework,3000);
-animate();
 </script>
 
 </body>
