@@ -9,10 +9,30 @@
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background: linear-gradient(135deg,#ffdde1,#ee9ca7);
   color:white;
   text-align:center;
   overflow-x:hidden;
+  background:black;
+}
+
+/* 🌌 GALAXIA ANIMADA */
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background: radial-gradient(circle at 20% 30%, #3a1c71, transparent 40%),
+              radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
+              radial-gradient(circle at 50% 50%, #000428, #000000 80%);
+  z-index:-2;
+}
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  pointer-events:none;
+  z-index:-1;
 }
 
 h1{
@@ -27,18 +47,18 @@ h1{
 
 @keyframes glow{
   from{ text-shadow:0 0 10px white;}
-  to{ text-shadow:0 0 30px #ff004c;}
+  to{ text-shadow:0 0 30px #00f7ff;}
 }
 
 .card{
-  background:rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.1);
   backdrop-filter: blur(10px);
   margin:30px auto;
   padding:25px;
   border-radius:20px;
   width:90%;
   max-width:600px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 button{
@@ -47,7 +67,7 @@ button{
   border-radius:30px;
   font-size:16px;
   cursor:pointer;
-  background:#ff4b7d;
+  background:#1e90ff;
   color:white;
   margin:10px;
   transition:0.3s;
@@ -55,19 +75,17 @@ button{
 
 button:hover{
   transform:scale(1.1);
-  background:#ff1f5a;
+  background:#00c6ff;
 }
 
 img{
   width:250px;
   border-radius:20px;
   margin-top:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
-.hidden{
-  display:none;
-}
+.hidden{ display:none; }
 
 #secretMessage{
   font-size:1.3em;
@@ -78,53 +96,69 @@ img{
   from{opacity:0; transform:translateY(20px);}
   to{opacity:1; transform:translateY(0);}
 }
+
+/* 🎉 MENSAJE SORPRESA */
+#surprise{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:3em;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:0 0 20px gold;
+  opacity:0;
+  animation: surpriseAnim 4s forwards;
+}
+
+@keyframes surpriseAnim{
+  0%{opacity:0; transform:translate(-50%,-50%) scale(0.5);}
+  20%{opacity:1; transform:translate(-50%,-50%) scale(1.2);}
+  80%{opacity:1;}
+  100%{opacity:0;}
+}
 </style>
 </head>
 <body>
 
-<h1>Feliz Cumpleaños <span class="name">Estefany</span> 🎂❤️</h1>
+<canvas id="effects"></canvas>
+<div id="surprise">🎉 FELIZ CUMPLEAÑOS MI AMOR 🎉</div>
+
+<h1>Feliz Cumpleaños <span class="name">Estefany</span> 🎂✨</h1>
 
 <div class="card">
-  <p>
-  Mi pelirroja hermosa, elegante, tierna, meme hecho persona y dueña de mis pensamientos ❤️  
-  Llevamos <b>15 meses</b> demostrando que el amor infinito sí existe. Demostremosle a todo el mundo que nos amamos, cuidamos y respetamos. 
-  Que sientan envidia de nuestro amor, te amo abuelita preciosa <3 
-  </p>
+<p>
+Mi universo favorito tiene tu nombre ❤️  
+Nuestro amor es más grande que esta galaxia.
+</p>
 </div>
 
 <div class="card">
-  <h2>⏳ Nuestro Tiempo Juntos</h2>
-  <p id="contador"></p>
+<h2>⏳ Nuestro Tiempo Juntos</h2>
+<p id="contador"></p>
 </div>
 
 <div class="card">
-  <h2>📸 Nuestra Foto</h2>
-  <img src="https://i.imgur.com/qO4Hwxl.jpeg">
+<h2>📸 Nuestra Foto</h2>
+<img src="https://i.imgur.com/qO4Hwxl.jpeg">
 </div>
 
 <div class="card">
-  <h2>🎵 Nuestra Canción</h2>
-  <button onclick="toggleMusic()">Activar nuestra canción 💖</button>
+<h2>🎵 Nuestra Canción</h2>
+<button onclick="toggleMusic()">Activar nuestra canción 💖</button>
 </div>
 
 <div class="card">
-  <h2>🎮 Mini Quiz del Amor</h2>
-  <p>¿Quién ama más?</p>
-  <button onclick="alert('Error 404: Yo te amo más ❤️')">Estefany</button>
-  <button onclick="alert('Correcto 😎 que bueno que lo sepas')">Ricardo</button>
+<h2>🔒 Mensaje Secreto</h2>
+<button onclick="revealSecret()">Descubrir</button>
+<p id="secretMessage" class="hidden">
+Eres mi paz, mi caos bonito y mi infinito personal.  
+Nuestro amor es estable, fuerte y real.  
+Te amo más de lo que las palabras pueden explicar ❤️
+</p>
 </div>
 
-<div class="card">
-  <h2>🔒 Mensaje Secreto</h2>
-  <button onclick="revealSecret()">Descubrir</button>
-  <p id="secretMessage" class="hidden">
-  Nuestro amor es tranquilo, casi sin conflictos, pero lleno de risas, abrazos, miradas cómplices y un infinito que no tiene final.  
-  Eres mi paz, mi caos bonito, mi hogar y mi persona favorita en el mundo ❤️ 
-  Agradezco cada detalle y regalo que haces por mi aunque en ocasiones sera un ogro se que tu amor es verdadero. Te amo mucho preciosa feliz cumpleaños ❤️
-  </p>
-</div>
-
-<!-- YouTube invisible -->
+<!-- 🎵 YOUTUBE INVISIBLE -->
 <iframe id="ytplayer"
 width="1"
 height="1"
@@ -134,8 +168,8 @@ allow="autoplay">
 </iframe>
 
 <script>
-/* CONTADOR REAL */
-const inicio = new Date("2024-11-09"); // CAMBIA ESTA FECHA por la real
+/* CONTADOR */
+const inicio = new Date("2024-11-09");
 const contador = document.getElementById("contador");
 
 function actualizarContador(){
@@ -149,35 +183,92 @@ function actualizarContador(){
 
   contador.innerHTML = dias+" días, "+horas+" horas, "+minutos+" minutos y "+segundos+" segundos ❤️";
 }
-
 setInterval(actualizarContador,1000);
 
-/* MUSICA */
+/* 🎵 MUSICA */
 let player;
-let isPlaying = false;
+let isPlaying=false;
 
 function onYouTubeIframeAPIReady(){
   player = new YT.Player('ytplayer');
 }
 
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
+var tag=document.createElement('script');
+tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
 
 function toggleMusic(){
-  if(!isPlaying){
-    player.playVideo();
-    isPlaying = true;
-  }else{
-    player.pauseVideo();
-    isPlaying = false;
+  if(player){
+    if(!isPlaying){
+      player.playVideo();
+      isPlaying=true;
+    }else{
+      player.pauseVideo();
+      isPlaying=false;
+    }
   }
 }
 
-/* MENSAJE SECRETO */
+/* 🔒 MENSAJE */
 function revealSecret(){
   document.getElementById("secretMessage").classList.remove("hidden");
 }
+
+/* 🎆 FUEGOS + CORAZONES */
+const canvas=document.getElementById("effects");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+function createHeart(){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:canvas.height,
+    size:Math.random()*20+10,
+    speed:Math.random()*2+1
+  });
+}
+
+function createFirework(){
+  for(let i=0;i<30;i++){
+    particles.push({
+      x:canvas.width/2,
+      y:canvas.height/2,
+      dx:(Math.random()-0.5)*6,
+      dy:(Math.random()-0.5)*6,
+      life:100
+    });
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach((p,i)=>{
+    if(p.life){
+      p.x+=p.dx;
+      p.y+=p.dy;
+      p.life--;
+      ctx.fillStyle="gold";
+      ctx.fillRect(p.x,p.y,3,3);
+      if(p.life<=0) particles.splice(i,1);
+    }else{
+      p.y-=p.speed;
+      ctx.fillStyle="red";
+      ctx.font=p.size+"px Arial";
+      ctx.fillText("❤️",p.x,p.y);
+      if(p.y<0) particles.splice(i,1);
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+setInterval(createHeart,500);
+setTimeout(createFirework,1000);
+animate();
 </script>
 
 </body>
