@@ -1,9 +1,9 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumple Estefany ❤️</title>
+<title>Feliz Cumpleaños Estefany ❤️</title>
 
 <style>
 body{
@@ -15,7 +15,7 @@ body{
   background:black;
 }
 
-/* 🌌 GALAXIA */
+/* 🌌 FONDO GALAXIA */
 body::before{
   content:"";
   position:fixed;
@@ -27,42 +27,63 @@ body::before{
   z-index:-3;
 }
 
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:0.2;
-  z-index:-2;
+/* ✨ TITULO CELEBRACION */
+h1{
+  font-size:40px;
+  margin-top:30px;
+  animation: glow 2s infinite alternate;
 }
 
-/* ===== CORAZONES CORREGIDOS ===== */
+@keyframes glow{
+  from{ text-shadow:0 0 10px #ff4da6;}
+  to{ text-shadow:0 0 25px #a29bfe;}
+}
+
+/* 🎉 CORAZONES */
 .heart{
   position:fixed;
   bottom:-30px;
   font-size:20px;
-  animation: floatUp 5s linear forwards;
+  animation: floatUp 6s linear forwards;
   pointer-events:none;
-  z-index:10;
 }
 
 @keyframes floatUp{
-  0%{
-    transform:translateY(0) scale(1);
-    opacity:1;
-  }
-  100%{
-    transform:translateY(-110vh) scale(1.5);
-    opacity:0;
-  }
+  0%{ transform:translateY(0); opacity:1;}
+  100%{ transform:translateY(-110vh); opacity:0;}
 }
 
-/* ===== POPUP MUSICA MINI ===== */
+/* 📦 CARDS */
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  margin:25px auto;
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:700px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* ⏳ CONTADOR */
+#counter{
+  font-size:18px;
+  margin-top:10px;
+}
+
+/* 📷 FOTO */
+.photo img{
+  width:100%;
+  border-radius:15px;
+  margin-top:10px;
+}
+
+/* 🎵 POPUP MINI */
 #musicPopup{
   position:fixed;
   bottom:15px;
   right:15px;
-  width:170px;          /* reducido */
+  width:170px;
   background:#111;
   border-radius:12px;
   padding:10px;
@@ -82,46 +103,16 @@ body::after{
   top:5px;
   right:7px;
   cursor:pointer;
-  font-size:13px;
-}
-
-#progressBar{
-  width:100%;
-  height:4px;
-  background:#222;
-  border-radius:4px;
-  margin-top:6px;
-  overflow:hidden;
-}
-
-#progress{
-  height:100%;
-  width:0%;
-  background:#6c5ce7;
-}
-
-/* resto igual */
-.card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  margin:30px auto;
-  padding:25px;
-  border-radius:20px;
-  width:90%;
-  max-width:670px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  position:relative;
 }
 
 button{
-  padding:12px 25px;
+  padding:10px 20px;
   border:none;
-  border-radius:30px;
-  font-size:16px;
+  border-radius:25px;
   cursor:pointer;
   background:#6c5ce7;
   color:white;
-  margin:8px;
+  margin:6px;
   transition:0.3s;
 }
 
@@ -130,81 +121,155 @@ button:hover{
   background:#a29bfe;
 }
 
-.hidden{display:none;}
+/* 🔐 POPUP SECRETO */
+#secretPopup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:2000;
+}
+
+#secretPopup img{
+  width:80%;
+  max-width:600px;
+  border-radius:20px;
+}
+
+.closeSecret{
+  margin-top:20px;
+  background:red;
+}
 </style>
 </head>
 <body>
 
-<h1>🎉 Feliz Cumpleaños Estefany ❤️</h1>
+<h1>🎉 Feliz Cumpleaños Estefany 🎂❤️</h1>
 
 <div class="card">
-<h2>🎵 Canción especial</h2>
-<button id="musicBtn">Reproducir nuestra canción 💖</button>
+<p>
+Hoy celebramos a la mujer más increíble del universo.  
+Gracias por iluminar mi vida, por cada risa, cada abrazo y cada momento inolvidable.  
+Este pequeño rincón digital es solo una mínima parte de lo que significas para mí 💖
+</p>
 </div>
 
-<!-- 🎵 POPUP MINI -->
+<div class="card">
+<h2>⏳ Nuestro tiempo juntos</h2>
+<div id="counter"></div>
+</div>
+
+<div class="card photo">
+<h2>📸 Nuestra foto icónica</h2>
+<img src="https://i.imgur.com/HFXl8KM.png">
+</div>
+
+<div class="card">
+<h2>🎵 Nuestra canción</h2>
+<button id="musicBtn">Reproducir 💖</button>
+</div>
+
+<div class="card">
+<h2>😂 Quiz del Amor</h2>
+<p>¿Quién tiene siempre la razón?</p>
+<button onclick="answer('Estefany')">Estefany</button>
+<button onclick="answer('Ricardo')">Ricardo</button>
+
+<p>¿Quién es más dramática pero adorable?</p>
+<button onclick="answer('Estefany')">Estefany</button>
+<button onclick="answer('Ricardo')">Ricardo</button>
+
+<p>¿Quién ama más?</p>
+<button onclick="answer('Estefany')">Estefany</button>
+<button onclick="answer('Ricardo')">Ricardo</button>
+
+<div id="quizResult"></div>
+</div>
+
+<div class="card">
+<h2>🔐 Mensaje Secreto</h2>
+<button onclick="openSecret()">Descubrir 💌</button>
+</div>
+
+<!-- POPUP SECRETO -->
+<div id="secretPopup">
+<img src="AQUI_TU_LINK_DE_IMAGEN">
+<button class="closeSecret" onclick="closeSecret()">Cerrar</button>
+</div>
+
+<!-- 🎵 MINI PLAYER -->
 <div id="musicPopup">
-  <span id="closeBtn" onclick="closePopup()">✖</span>
-  <img src="https://i.imgur.com/HFXl8KM.png">
-  <div id="progressBar"><div id="progress"></div></div>
-  <p id="time">0:00 / 4:12</p>
+<span id="closeBtn" onclick="closePopup()">✖</span>
+<img src="https://i.imgur.com/HFXl8KM.png">
+<p>Reproduciendo...</p>
 </div>
 
-<!-- YOUTUBE -->
 <iframe id="ytplayer" width="0" height="0"
 src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
 frameborder="0" allow="autoplay"></iframe>
 
 <script>
 
-/* — CORAZONES LLUVIA CORREGIDOS — */
+/* ❤️ Corazones */
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.className="heart";
   heart.innerHTML="❤️";
   heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(Math.random()*15+15)+"px";
   document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
-},500);
+  setTimeout(()=>heart.remove(),6000);
+},600);
 
-/* — MUSICA — */
-let player, playing=false;
-let progressSec=0;
-const total=252;
+/* ⏳ Contador */
+const startDate=new Date("2024-11-09");
+function updateCounter(){
+  const now=new Date();
+  const diff=now-startDate;
+  const days=Math.floor(diff/(1000*60*60*24));
+  document.getElementById("counter").innerText=
+  "Llevamos "+days+" días juntos 💞";
+}
+updateCounter();
 
+/* 🎵 Música */
+let player,playing=false;
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
-
 function onYouTubeIframeAPIReady(){
   player=new YT.Player('ytplayer');
 }
-
 document.getElementById("musicBtn").addEventListener("click",()=>{
   if(player && !playing){
     player.playVideo();
     document.getElementById("musicPopup").style.display="block";
     playing=true;
-    progressSec=0;
-
-    const interval=setInterval(()=>{
-      if(progressSec<=total){
-        const pct=(progressSec/total)*100;
-        document.getElementById("progress").style.width=pct+"%";
-        const min=Math.floor(progressSec/60);
-        let sec=progressSec%60;
-        if(sec<10) sec="0"+sec;
-        document.getElementById("time").innerText=min+":"+sec+" / 4:12";
-        progressSec++;
-      } else clearInterval(interval);
-    },1000);
   }
 });
-
 function closePopup(){
   document.getElementById("musicPopup").style.display="none";
-  if(player){ player.pauseVideo(); playing=false; }
+  if(player){player.pauseVideo();playing=false;}
+}
+
+/* 😂 Quiz */
+function answer(name){
+  const result=document.getElementById("quizResult");
+  if(name==="Estefany"){
+    result.innerHTML="Correcto 😌 obviamente Estefany, yo solo sobrevivo.";
+  }else{
+    result.innerHTML="JAJA buen intento, pero todos sabemos que es Estefany 😈";
+  }
+}
+
+/* 🔐 Secreto */
+function openSecret(){
+  document.getElementById("secretPopup").style.display="flex";
+}
+function closeSecret(){
+  document.getElementById("secretPopup").style.display="none";
 }
 
 </script>
