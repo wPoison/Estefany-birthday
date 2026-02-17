@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -27,7 +27,6 @@ body::before{
   z-index:-3;
 }
 
-/* estrellas parpadeando */
 body::after{
   content:"";
   position:fixed;
@@ -37,23 +36,71 @@ body::after{
   z-index:-2;
 }
 
-canvas{
+/* ===== CORAZONES CORREGIDOS ===== */
+.heart{
   position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
+  bottom:-30px;
+  font-size:20px;
+  animation: floatUp 5s linear forwards;
   pointer-events:none;
-  z-index:-1;
+  z-index:10;
 }
 
-/* TÍTULO */
-h1{
-  font-size:2.8em;
-  margin-top:40px;
-  text-shadow:0 0 20px #fff;
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-110vh) scale(1.5);
+    opacity:0;
+  }
 }
 
-/* TARJETAS */
+/* ===== POPUP MUSICA MINI ===== */
+#musicPopup{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  width:170px;          /* reducido */
+  background:#111;
+  border-radius:12px;
+  padding:10px;
+  box-shadow:0 0 18px #6c5ce7;
+  display:none;
+  z-index:999;
+  font-size:12px;
+}
+
+#musicPopup img{
+  width:100%;
+  border-radius:8px;
+}
+
+#closeBtn{
+  position:absolute;
+  top:5px;
+  right:7px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+#progressBar{
+  width:100%;
+  height:4px;
+  background:#222;
+  border-radius:4px;
+  margin-top:6px;
+  overflow:hidden;
+}
+
+#progress{
+  height:100%;
+  width:0%;
+  background:#6c5ce7;
+}
+
+/* resto igual */
 .card{
   background:rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
@@ -63,7 +110,6 @@ h1{
   width:90%;
   max-width:670px;
   box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  z-index:2;
   position:relative;
 }
 
@@ -84,67 +130,7 @@ button:hover{
   background:#a29bfe;
 }
 
-img{
-  width:250px;
-  border-radius:20px;
-  margin-top:15px;
-}
-
 .hidden{display:none;}
-
-/* —— constelación estilo texto —— */
-.constellation-point{
-  position:absolute;
-  width:5px;
-  height:5px;
-  background:white;
-  border-radius:50%;
-}
-
-/* —— POPUP MUSICA —— */
-#musicPopup{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:290px;
-  background:#111;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 0 25px #6c5ce7;
-  display:none;
-  z-index:999;
-}
-
-#musicPopup img{
-  width:100%;
-  border-radius:15px;
-}
-
-#closeBtn{
-  position:absolute;
-  top:8px;
-  right:12px;
-  cursor:pointer;
-  font-size:18px;
-  color:white;
-}
-
-/* —— Barra progreso 4:12 —— */
-#progressBar{
-  width:100%;
-  height:8px;
-  background:#222;
-  border-radius:5px;
-  margin-top:12px;
-  overflow:hidden;
-}
-
-#progress{
-  height:100%;
-  width:0%;
-  background:#6c5ce7;
-}
 </style>
 </head>
 <body>
@@ -152,59 +138,14 @@ img{
 <h1>🎉 Feliz Cumpleaños Estefany ❤️</h1>
 
 <div class="card">
-<p>
-Mi amor por ti es más infinito que el universo 💫  
-Gracias por cada risa, abrazo y aventura juntos.
-</p>
-</div>
-
-<div class="card">
-<h2>⏳ Nuestro Tiempo</h2>
-<p id="contador"></p>
-</div>
-
-<div class="card">
-<h2>📸 Nuestra Foto</h2>
-<img src="https://i.imgur.com/qO4Hwxl.jpeg">
-</div>
-
-<div class="card">
 <h2>🎵 Canción especial</h2>
 <button id="musicBtn">Reproducir nuestra canción 💖</button>
 </div>
 
-<div class="card">
-<h2>🎮 Quiz romántico</h2>
-<p>¿Quién ama más?</p>
-<button onclick="alert('Respuesta: los dos por igual ❤️')">Estefany</button>
-<button onclick="alert('Respuesta: los dos por igual ❤️')">Ricardo</button>
-
-<p>¿Quién nos quita risas?</p>
-<button onclick="alert('Siempre tú con tus memes 😂❤️')">Estefany</button>
-<button onclick="alert('Yo con mis ocurrencias 😌')">Ricardo</button>
-
-<p>¿Quién propone mejores planes?</p>
-<button onclick="alert('Tú eres la creatividad 😍')">Estefany</button>
-<button onclick="alert('A veces yo también 😉')">Ricardo</button>
-</div>
-
-<div class="card">
-<h2>🔓 Mensaje secreto</h2>
-<button onclick="revealSecret()">Descubrir</button>
-<div id="secretMessage" class="hidden">
-<p>
-Nuestro amor es tranquilo, lleno de comprensión, risas infinitas y apoyo eterno ❤️
-</p>
-<img src="TU_LINK_IMGUR_AQUI">
-</div>
-</div>
-
-<!-- 🎵 POPUP -->
+<!-- 🎵 POPUP MINI -->
 <div id="musicPopup">
   <span id="closeBtn" onclick="closePopup()">✖</span>
   <img src="https://i.imgur.com/HFXl8KM.png">
-  <h3>Die With A Smile 💖</h3>
-  <p>Lady Gaga & Bruno Mars</p>
   <div id="progressBar"><div id="progress"></div></div>
   <p id="time">0:00 / 4:12</p>
 </div>
@@ -215,40 +156,23 @@ src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
 frameborder="0" allow="autoplay"></iframe>
 
 <script>
-/* — CONTADOR — */
-const inicio = new Date("2024-11-09");
-const cnt = document.getElementById("contador");
-setInterval(()=>{
-  const ahora=new Date();
-  const diff=ahora-inicio;
-  const dias=Math.floor(diff/86400000);
-  cnt.innerHTML = dias+" días juntos ❤️";
-},1000);
 
-/* — CORAZONES LLUVIA — */
+/* — CORAZONES LLUVIA CORREGIDOS — */
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.className="heart";
   heart.innerHTML="❤️";
   heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*15+15)+"px";
   document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
+  setTimeout(()=>heart.remove(),5000);
 },500);
-
-/* — CONSTELACIÓN simple — */
-const letters="ESTEFANY";
-for(let i=0; i<letters.length; i++){
-  const p=document.createElement("div");
-  p.className="constellation-point";
-  p.style.top = 50 + i*30 + "px";
-  p.style.left = 30 + i*40 + "vw";
-  document.body.appendChild(p);
-}
 
 /* — MUSICA — */
 let player, playing=false;
 let progressSec=0;
 const total=252;
+
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
@@ -262,6 +186,8 @@ document.getElementById("musicBtn").addEventListener("click",()=>{
     player.playVideo();
     document.getElementById("musicPopup").style.display="block";
     playing=true;
+    progressSec=0;
+
     const interval=setInterval(()=>{
       if(progressSec<=total){
         const pct=(progressSec/total)*100;
@@ -281,10 +207,6 @@ function closePopup(){
   if(player){ player.pauseVideo(); playing=false; }
 }
 
-/* — MENSAJE — */
-function revealSecret(){
-  document.getElementById("secretMessage").classList.remove("hidden");
-}
 </script>
 
 </body>
