@@ -11,59 +11,16 @@ body{
   font-family:'Segoe UI',sans-serif;
   color:white;
   text-align:center;
-  overflow-x:hidden;
   background:black;
 }
 
-/* 🌌 Fondo */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 30%, #2b1055, transparent 40%),
-    radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
-    radial-gradient(circle at 50% 50%, #000428, #000000 80%);
-  z-index:-3;
-}
-
-/* ✨ Título */
-h1{
-  font-size:42px;
-  margin-top:25px;
-  animation: glow 2s infinite alternate;
-}
+/* Gemas de color */
+h1{ font-size:42px; animation: glow 2s infinite alternate;}
 @keyframes glow{
   from{ text-shadow:0 0 10px #ff4da6;}
   to{ text-shadow:0 0 25px #a29bfe;}
 }
 
-/* 🎂 Cuenta regresiva */
-#birthdayCountdown{
-  margin-top:10px;
-  font-size:18px;
-  background:rgba(255,255,255,0.1);
-  display:inline-block;
-  padding:10px 18px;
-  border-radius:15px;
-  box-shadow:0 0 15px #6c5ce7;
-}
-
-/* ❤️ CORAZONES FLOTANDO */
-.heart{
-  position:fixed;
-  bottom:-30px;
-  font-size:20px;
-  animation: floatUp linear forwards;
-  pointer-events:none;
-}
-
-@keyframes floatUp{
-  0%{ transform:translateY(0) scale(1); opacity:1;}
-  100%{ transform:translateY(-110vh) scale(1.5); opacity:0;}
-}
-
-/* 📦 Cards */
 .card{
   background:rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
@@ -75,63 +32,38 @@ h1{
   box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
-.photo img{
-  width:100%;
-  border-radius:15px;
-}
-
-/* 🎵 Mini Player */
-#musicPopup{
-  position:fixed;
-  bottom:15px;
-  right:15px;
-  width:230px;
-  background:#111;
-  border-radius:15px;
-  padding:12px;
-  box-shadow:0 0 20px #6c5ce7;
-  display:none;
-  z-index:999;
-  font-size:12px;
-}
-
-#musicPopup img{
-  width:100%;
-  border-radius:10px;
-  margin-bottom:8px;
-}
-
-#progressContainer{
-  width:100%;
-  height:6px;
-  background:#333;
-  border-radius:5px;
-  margin-top:8px;
-  overflow:hidden;
-}
-#progressBar{
-  height:100%;
-  width:0%;
-  background:#a29bfe;
-}
-#timeDisplay{
-  font-size:11px;
-  margin-top:5px;
-}
-
 button{
   padding:10px 20px;
   border:none;
   border-radius:25px;
-  cursor:pointer;
   background:#6c5ce7;
   color:white;
+  cursor:pointer;
   margin:6px;
   transition:0.3s;
 }
-button:hover{
-  transform:scale(1.1);
-  background:#a29bfe;
+button:hover{ background:#a29bfe; transform:scale(1.1); }
+
+/* Corazones */
+.heart{
+  position:fixed;
+  bottom:-30px;
+  font-size:20px;
+  animation: floatUp linear forwards;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  0%{ transform:translateY(0); opacity:1;}
+  100%{ transform:translateY(-110vh); opacity:0;}
+}
+
+/* 🎆 Canvas para fuegos */
+#fireworksCanvas{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:5000;
 }
 
 /* 🔐 Popup secreto */
@@ -145,9 +77,8 @@ button:hover{
   flex-direction:column;
   opacity:0;
   visibility:hidden;
-  transition: all 0.5s ease;
+  transition:all .5s ease;
   z-index:2000;
-  padding:20px;
 }
 #secretPopup.active{
   opacity:1;
@@ -159,6 +90,12 @@ button:hover{
   border-radius:20px;
   margin-bottom:15px;
 }
+
+/* Meme gato de cumpleaños */
+#memeBirthday{
+  position:fixed; top:15px; left:15px;
+  width:180px; display:none; z-index:6000;
+}
 </style>
 </head>
 <body>
@@ -168,7 +105,7 @@ button:hover{
 
 <div class="card">
 <p>
-Eres mi caos favorito, mi risa asegurada y la razón por la que sonrío como idiota mirando el celular 💖
+Eres mi caos favorito, mi risa asegurada y mi mejor decisión 💖
 </p>
 </div>
 
@@ -188,24 +125,19 @@ Eres mi caos favorito, mi risa asegurada y la razón por la que sonrío como idi
 </div>
 
 <div class="card">
-<h2>😂 Quiz del Amor (versión objetiva según Ricardo)</h2>
-
-<p>¿Quién tuvo la mejor idea al empezar esta relación?</p>
+<h2>😂 Quiz del Amor</h2>
+<p>¿Quién tuvo la idea épica de empezar todo?</p>
 <button onclick="quiz(1,'Estefany')">Estefany</button>
 <button onclick="quiz(1,'Ricardo')">Ricardo</button>
-
-<p>¿Quién es el más inteligente científicamente comprobado?</p>
+<p>¿Quién siempre propone las mejores salidas… aunque se tarde?</p>
 <button onclick="quiz(2,'Estefany')">Estefany</button>
 <button onclick="quiz(2,'Ricardo')">Ricardo</button>
-
-<p>¿Quién cocina mejor?</p>
+<p>¿Quién ama más infinito?</p>
 <button onclick="quiz(3,'Estefany')">Estefany</button>
 <button onclick="quiz(3,'Ricardo')">Ricardo</button>
-
-<p>¿Quién ama más intensamente?</p>
+<p>¿Quién guarda memes ridículos de los dos?</p>
 <button onclick="quiz(4,'Estefany')">Estefany</button>
 <button onclick="quiz(4,'Ricardo')">Ricardo</button>
-
 <div id="quizResult"></div>
 </div>
 
@@ -214,11 +146,6 @@ Eres mi caos favorito, mi risa asegurada y la razón por la que sonrío como idi
 <button onclick="openSecret()">Descubrir 💌</button>
 </div>
 
-<div class="card">
-  <button onclick="startBirthdayMode()">🎆 Probar modo cumpleaños</button>
-</div>
-  
-<!-- Popup secreto -->
 <div id="secretPopup">
 <img src="https://images7.memedroid.com/images/UPLOADED207/6022cb61ec131.jpeg">
 <p style="max-width:500px;">
@@ -227,134 +154,132 @@ Te quiero bien limpiecita bb que la lengua mia no te la sacan de esos cachetes �
 <button onclick="closeSecret()">Cerrar</button>
 </div>
 
-<!-- Mini Player -->
-<div id="musicPopup">
-<img src="https://t2.genius.com/unsafe/344x344/https%3A%2F%2Fimages.genius.com%2Fabe185baf2b9fd84ebb5d493ffe715b3.1000x1000x1.png">
-<p>Reproduciendo nuestra canción 💖</p>
-<div id="progressContainer"><div id="progressBar"></div></div>
-<div id="timeDisplay">0:00 / 0:00</div>
-<button onclick="closePopup()">✖</button>
+<!-- Botón de prueba -->
+<div class="card">
+<button onclick="triggerBirthdayMode()">🎆 Probar efectos de cumpleaños</button>
 </div>
 
-<iframe id="ytplayer" width="0" height="0"
-src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
-frameborder="0" allow="autoplay"></iframe>
+<canvas id="fireworksCanvas"></canvas>
+<img id="memeBirthday" src="https://i.imgur.com/Vz3QmGk.jpeg">
 
 <script>
-
-/* ❤️ Corazones */
-function createHeart(){
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(15+Math.random()*20)+"px";
-  heart.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),8000);
+/* Corazones */
+function launchHeart(){
+  const h=document.createElement("div");
+  h.className="heart"; h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(4+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7500);
 }
-setInterval(createHeart,400);
+setInterval(launchHeart,500);
 
-/* ⏳ Tiempo juntos */
-const startDate=new Date("2024-11-09");
-function updateCounter(){
+/* Contador */
+const start=new Date("2024-11-09");
+function updateDays(){
   const now=new Date();
-  const diff=now-startDate;
-  const days=Math.floor(diff/(1000*60*60*24));
-  document.getElementById("counter").innerText=
-  "Llevamos "+days+" días juntos 💞";
+  const d=Math.floor((now-start)/(1000*60*60*24));
+  document.getElementById("counter").innerText="Llevamos "+d+" días juntos 💞";
 }
-updateCounter();
+updateDays();
 
-/* 🎂 Cuenta regresiva actualizada */
-const birthday=new Date("2026-02-18");
-function updateBirthday(){
+/* Cuenta regresiva */
+const bDay=new Date("2026-02-18");
+function updateCountdown(){
   const now=new Date();
-  const diff=birthday-now;
+  const diff=bDay-now;
   const days=Math.floor(diff/(1000*60*60*24));
-  const hours=Math.floor((diff/(1000*60*60))%24);
-  const minutes=Math.floor((diff/1000/60)%60);
-  const seconds=Math.floor((diff/1000)%60);
+  const hrs=Math.floor((diff/(1000*60*60))%24);
+  const mins=Math.floor((diff/1000/60)%60);
+  const secs=Math.floor((diff/1000)%60);
   document.getElementById("birthdayCountdown").innerText=
-  "Faltan "+days+" días "+hours+"h "+minutes+"m "+seconds+"s 🎉";
+  "Faltan "+days+"d "+hrs+"h "+mins+"m "+secs+"s 🎉";
 }
-setInterval(updateBirthday,1000);
+setInterval(updateCountdown,1000);
 
-/* 🎵 YouTube barra sincronizada */
-let player, interval;
-var tag=document.createElement('script');
-tag.src="https://www.youtube.com/iframe_api";
-document.body.appendChild(tag);
+/* Fireworks effect */
+const can=document.getElementById("fireworksCanvas");
+const ctx=can.getContext("2d");
+can.width=innerWidth; can.height=innerHeight;
+let particles = [];
 
-function onYouTubeIframeAPIReady(){
-  player=new YT.Player('ytplayer',{
-    events:{ 'onStateChange': onState }
+function createFirework(){
+  const x=Math.random()*can.width;
+  const y=Math.random()*can.height/2;
+  for(let i=0;i<60;i++){
+    particles.push({
+      x,y,
+      angle:Math.random()*Math.PI*2,
+      speed:Math.random()*4+2,
+      life:100
+    });
+  }
+}
+function drawFireworks(){
+  ctx.fillStyle="rgba(0,0,0,0.2)";
+  ctx.fillRect(0,0,can.width,can.height);
+  particles.forEach((p,i)=>{
+    p.x+=Math.cos(p.angle)*p.speed;
+    p.y+=Math.sin(p.angle)*p.speed;
+    p.life--;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,2,0,Math.PI*2);
+    ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
+    ctx.fill();
+    if(p.life<=0)particles.splice(i,1);
   });
 }
+function runFireworks(){
+  const fInt=setInterval(createFirework,600);
+  const aInt=setInterval(drawFireworks,30);
+  setTimeout(()=>{
+    clearInterval(fInt); clearInterval(aInt);
+    ctx.clearRect(0,0,can.width,can.height);
+    document.getElementById("memeBirthday").style.display="none";
+  },10000);
+}
 
-function onState(event){
-  if(event.data==YT.PlayerState.PLAYING){
-    interval=setInterval(updateProgress,1000);
-  } else {
-    clearInterval(interval);
+/* Automatic trigger */
+function checkBirthdayMode(){
+  if(new Date()>=bDay){
+    document.getElementById("memeBirthday").style.display="block";
+    runFireworks();
   }
 }
+checkBirthdayMode();
 
-function updateProgress(){
-  const current=player.getCurrentTime();
-  const duration=player.getDuration();
-  const percent=(current/duration)*100;
-  document.getElementById("progressBar").style.width=percent+"%";
-  document.getElementById("timeDisplay").innerText=
-    format(current)+" / "+format(duration);
+/* Manual test button */
+function triggerBirthdayMode(){
+  document.getElementById("memeBirthday").style.display="block";
+  runFireworks();
 }
 
-function format(t){
-  const m=Math.floor(t/60);
-  const s=Math.floor(t%60);
-  return m+":"+(s<10?"0":"")+s;
-}
-
-document.getElementById("musicBtn").addEventListener("click",()=>{
-  player.playVideo();
-  document.getElementById("musicPopup").style.display="block";
-});
-
-function closePopup(){
-  document.getElementById("musicPopup").style.display="none";
-  player.pauseVideo();
-}
-
-/* 😂 Quiz personalizado */
+/* Quiz logic */
 function quiz(q,p){
   const r=document.getElementById("quizResult");
-
   if(q===1){
-    r.innerHTML = p==="Ricardo"
-      ? "Exacto 😌 yo inicié esta joya romántica."
-      : "Casi… pero alguien tenía que dar el primer paso legendario.";
+    r.innerText=p==="Ricardo"
+      ?"Correcto 😎 yo inicié esto con estilo."
+      :"Mmm... pero quien realmente movió ficha fue Ricardo 😏";
   }
-
   if(q===2){
-    r.innerHTML = p==="Ricardo"
-      ? "Confirmado por la NASA, Harvard y mi mamá 😎."
-      : "Inteligente sí… pero no nivel Ricardo 3000.";
+    r.innerText=p==="Ricardo"
+      ?"Científicamente comprobado en laboratorio secreto 😌"
+      :"Intel falta para este título 😆";
   }
-
   if(q===3){
-    r.innerHTML = p==="Ricardo"
-      ? "Chef Ricardo estrella Michelin imaginaria ⭐."
-      : "Ella cocina rico… pero Ricardo pone el sazón emocional.";
+    r.innerText=p==="Ricardo"
+      ?"Chef de sentimientos con toque mágico 😎"
+      :"Suele cocinar… pero Ricardo tiene sazón amoroso 😉";
   }
-
   if(q===4){
-    r.innerHTML = p==="Ricardo"
-      ? "Ricardo ama tan fuerte que hizo toda esta ingeniería romántica."
-      : "Ella ama mucho… pero Ricardo hizo despliegue tecnológico premium.";
+    r.innerText=p==="Ricardo"
+      ?"Ricardo ama tan fuerte que hizo esta página entera ❤️"
+      :"Amor inmenso… pero no tan técnico 😌";
   }
 }
 
-/* Popup secreto */
+/* Secret Popup */
 function openSecret(){
   document.getElementById("secretPopup").classList.add("active");
 }
@@ -362,103 +287,7 @@ function closeSecret(){
   document.getElementById("secretPopup").classList.remove("active");
 }
 
-<!-- 🎆 MEME CUMPLEAÑOS -->
-<div id="birthdayMeme" style="
-position:fixed;
-top:15px;
-left:15px;
-width:180px;
-display:none;
-z-index:5000;
-">
-<img src="https://i.imgur.com/Vz3QmGk.jpeg" style="width:100%; border-radius:15px;">
-</div>
-
-<canvas id="fireworksCanvas" style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:4000;
-"></canvas>
-
-<script>
-
-/* 🎆 ACTIVADOR AUTOMÁTICO */
-const birthdayDate = new Date("2026-02-18T00:00:00");
-
-function checkBirthdayMode(){
-  const now = new Date();
-  if(now >= birthdayDate){
-    startBirthdayMode();
-  }
-}
-
-checkBirthdayMode();
-
-/* 🎆 FUNCIÓN PRINCIPAL */
-function startBirthdayMode(){
-
-  const meme = document.getElementById("birthdayMeme");
-  meme.style.display = "block";
-
-  const canvas = document.getElementById("fireworksCanvas");
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  let particles = [];
-
-  function createFirework(){
-    const x = Math.random()*canvas.width;
-    const y = Math.random()*canvas.height/2;
-    for(let i=0;i<60;i++){
-      particles.push({
-        x:x,
-        y:y,
-        angle:Math.random()*2*Math.PI,
-        speed:Math.random()*4+2,
-        life:100
-      });
-    }
-  }
-
-  function update(){
-    ctx.fillStyle="rgba(0,0,0,0.2)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    particles.forEach((p,i)=>{
-      p.x += Math.cos(p.angle)*p.speed;
-      p.y += Math.sin(p.angle)*p.speed;
-      p.life--;
-
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,2,0,Math.PI*2);
-      ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
-      ctx.fill();
-
-      if(p.life<=0){
-        particles.splice(i,1);
-      }
-    });
-  }
-
-  let fireworkInterval = setInterval(createFirework,600);
-  let animationInterval = setInterval(update,30);
-
-  setTimeout(()=>{
-    clearInterval(fireworkInterval);
-    clearInterval(animationInterval);
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    meme.style.display="none";
-  },10000);
-}
-
 </script>
 
 </body>
 </html>
-
