@@ -2,291 +2,309 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños Estefany ❤️</title>
+<title>Feliz Cumpleaños Estefany</title>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <style>
 body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  color:white;
-  text-align:center;
-  background:black;
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background: linear-gradient(135deg,#ff9ec4,#ffcce6,#ff85b3);
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
 
-/* Gemas de color */
-h1{ font-size:42px; animation: glow 2s infinite alternate;}
+h1{
+font-size:3em;
+margin-top:40px;
+animation: glow 2s infinite alternate;
+}
+
 @keyframes glow{
-  from{ text-shadow:0 0 10px #ff4da6;}
-  to{ text-shadow:0 0 25px #a29bfe;}
+from{ text-shadow:0 0 10px #fff,0 0 20px #ff66cc;}
+to{ text-shadow:0 0 20px #fff,0 0 40px #ff1493;}
+}
+
+.countdown{
+font-size:1.5em;
+margin-top:10px;
+background:rgba(255,255,255,0.15);
+padding:10px;
+border-radius:15px;
+display:inline-block;
 }
 
 .card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  margin:25px auto;
-  padding:25px;
-  border-radius:20px;
-  width:90%;
-  max-width:700px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+border-radius:20px;
+padding:20px;
+margin:30px auto;
+width:80%;
+max-width:600px;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.iconic-img{
+width:300px;
+border-radius:20px;
+box-shadow:0 0 15px rgba(0,0,0,0.4);
 }
 
 button{
-  padding:10px 20px;
-  border:none;
-  border-radius:25px;
-  background:#6c5ce7;
-  color:white;
-  cursor:pointer;
-  margin:6px;
-  transition:0.3s;
+background:#ff4da6;
+border:none;
+padding:10px 20px;
+border-radius:20px;
+color:white;
+cursor:pointer;
+margin-top:10px;
+transition:0.3s;
 }
-button:hover{ background:#a29bfe; transform:scale(1.1); }
+button:hover{background:#ff1a8c;}
 
-/* Corazones */
-.heart{
-  position:fixed;
-  bottom:-30px;
-  font-size:20px;
-  animation: floatUp linear forwards;
-  pointer-events:none;
-}
-@keyframes floatUp{
-  0%{ transform:translateY(0); opacity:1;}
-  100%{ transform:translateY(-110vh); opacity:0;}
+#player-container{
+position:fixed;
+bottom:15px;
+right:15px;
+width:260px;
+background:rgba(0,0,0,0.6);
+padding:10px;
+border-radius:15px;
 }
 
-/* 🎆 Canvas para fuegos */
-#fireworksCanvas{
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  pointer-events:none;
-  z-index:5000;
+#progressBar{
+width:100%;
 }
 
-/* 🔐 Popup secreto */
 #secretPopup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.95);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  opacity:0;
-  visibility:hidden;
-  transition:all .5s ease;
-  z-index:2000;
-}
-#secretPopup.active{
-  opacity:1;
-  visibility:visible;
-}
-#secretPopup img{
-  width:80%;
-  max-width:400px;
-  border-radius:20px;
-  margin-bottom:15px;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;
+color:black;
+width:80%;
+max-width:600px;
+padding:30px;
+border-radius:20px;
+transition:0.5s;
+z-index:9999;
 }
 
-/* Meme gato de cumpleaños */
-#memeBirthday{
-  position:fixed; top:15px; left:15px;
-  width:180px; display:none; z-index:6000;
+#secretPopup.active{
+transform:translate(-50%,-50%) scale(1);
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+color:red;
+animation:floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+from{transform:translateY(100vh); opacity:1;}
+to{transform:translateY(-10vh); opacity:0;}
+}
+
+.firework{
+position:fixed;
+font-size:40px;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0);}
+100%{transform:scale(2);opacity:0;}
+}
+
+.meme{
+position:fixed;
+top:10px;
+left:10px;
+width:180px;
+border-radius:15px;
+box-shadow:0 0 20px black;
+display:none;
 }
 </style>
 </head>
+
 <body>
 
-<h1>🎉 Feliz Cumpleaños Estefany 🎂❤️</h1>
-<div id="birthdayCountdown"></div>
+<h1>🎉 Feliz Cumpleaños Estefany 🎉</h1>
+
+<div class="countdown" id="countdown"></div>
 
 <div class="card">
-<p>
-Eres mi caos favorito, mi risa asegurada y mi mejor decisión 💖
-</p>
+<p>Mi amor, hoy celebramos tus 30 años y cada segundo a tu lado desde el 9 de noviembre de 2024 ❤️</p>
 </div>
 
 <div class="card">
-<h2>⏳ Nuestro tiempo juntos</h2>
-<div id="counter"></div>
-</div>
-
-<div class="card photo">
-<h2>📸 Nuestra foto icónica</h2>
-<img src="https://i.imgur.com/qO4Hwxl.jpeg">
+<h2>Tiempo juntos</h2>
+<div id="relationshipTime"></div>
 </div>
 
 <div class="card">
-<h2>🎵 Nuestra canción</h2>
-<button id="musicBtn">Reproducir 💖</button>
+<h2>Nuestra foto icónica</h2>
+<img src="https://i.imgur.com/qO4Hwxl.jpeg" class="iconic-img">
 </div>
 
 <div class="card">
-<h2>😂 Quiz del Amor</h2>
-<p>¿Quién tuvo la idea épica de empezar todo?</p>
-<button onclick="quiz(1,'Estefany')">Estefany</button>
-<button onclick="quiz(1,'Ricardo')">Ricardo</button>
-<p>¿Quién siempre propone las mejores salidas… aunque se tarde?</p>
-<button onclick="quiz(2,'Estefany')">Estefany</button>
-<button onclick="quiz(2,'Ricardo')">Ricardo</button>
-<p>¿Quién ama más infinito?</p>
-<button onclick="quiz(3,'Estefany')">Estefany</button>
-<button onclick="quiz(3,'Ricardo')">Ricardo</button>
-<p>¿Quién guarda memes ridículos de los dos?</p>
-<button onclick="quiz(4,'Estefany')">Estefany</button>
-<button onclick="quiz(4,'Ricardo')">Ricardo</button>
-<div id="quizResult"></div>
+<h2>Nuestra canción</h2>
+<img src="https://t2.genius.com/unsafe/344x344/https%3A%2F%2Fimages.genius.com%2Fabe185baf2b9fd84ebb5d493ffe715b3.1000x1000x1.png" width="200">
 </div>
 
 <div class="card">
-<h2>🔐 Mensaje Secreto</h2>
-<button onclick="openSecret()">Descubrir 💌</button>
+<h2>Quiz del Amor 😈</h2>
+<div id="quiz"></div>
+</div>
+
+<div class="card">
+<h2>Mensaje secreto</h2>
+<button onclick="openSecret()">Descubrir</button>
 </div>
 
 <div id="secretPopup">
-<img src="https://images7.memedroid.com/images/UPLOADED207/6022cb61ec131.jpeg">
-<p style="max-width:500px;">
-Te quiero bien limpiecita bb que la lengua mia no te la sacan de esos cachetes 😈❤️
-</p>
+<img src="https://images7.memedroid.com/images/UPLOADED207/6022cb61ec131.jpeg" width="250"><br><br>
+<b>Te quiero bien limpiecita bb que la lengua mia no te la sacan de esos cachetes</b><br><br>
 <button onclick="closeSecret()">Cerrar</button>
 </div>
 
-<!-- Botón de prueba -->
-<div class="card">
-<button onclick="triggerBirthdayMode()">🎆 Probar efectos de cumpleaños</button>
+<div id="player-container">
+<div id="player"></div>
+<input type="range" id="progressBar" value="0">
 </div>
 
-<canvas id="fireworksCanvas"></canvas>
-<img id="memeBirthday" src="https://i.imgur.com/Vz3QmGk.jpeg">
+<img src="https://i.imgur.com/1Q9Z1Zm.jpeg" class="meme" id="meme">
+
+<div class="hearts" id="hearts"></div>
+
+<div style="margin:50px;">
+<button onclick="triggerBirthdayMode()">🎆 Botón de Prueba Cumpleaños 🎆</button>
+</div>
 
 <script>
-/* Corazones */
-function launchHeart(){
-  const h=document.createElement("div");
-  h.className="heart"; h.innerText="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(4+Math.random()*3)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7500);
+let player;
+function onYouTubeIframeAPIReady(){
+player=new YT.Player('player',{
+height:'140',
+width:'240',
+videoId:'dQw4w9WgXcQ',
+events:{'onReady':onPlayerReady}
+});
 }
-setInterval(launchHeart,500);
 
-/* Contador */
-const start=new Date("2024-11-09");
-function updateDays(){
-  const now=new Date();
-  const d=Math.floor((now-start)/(1000*60*60*24));
-  document.getElementById("counter").innerText="Llevamos "+d+" días juntos 💞";
+function onPlayerReady(){
+setInterval(()=>{
+if(player && player.getDuration){
+let progress=(player.getCurrentTime()/player.getDuration())*100;
+document.getElementById('progressBar').value=progress;
 }
-updateDays();
+},1000);
+}
 
-/* Cuenta regresiva */
-const bDay=new Date("2026-02-18");
+document.getElementById('progressBar').addEventListener('input',function(){
+let time=(this.value/100)*player.getDuration();
+player.seekTo(time);
+});
+
+function openSecret(){
+document.getElementById('secretPopup').classList.add('active');
+}
+
+function closeSecret(){
+document.getElementById('secretPopup').classList.remove('active');
+}
+
+function relationshipTime(){
+let start=new Date('2024-11-09');
+let now=new Date();
+let diff=now-start;
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById('relationshipTime').innerHTML=days+" días juntos ❤️";
+}
+relationshipTime();
+
 function updateCountdown(){
-  const now=new Date();
-  const diff=bDay-now;
-  const days=Math.floor(diff/(1000*60*60*24));
-  const hrs=Math.floor((diff/(1000*60*60))%24);
-  const mins=Math.floor((diff/1000/60)%60);
-  const secs=Math.floor((diff/1000)%60);
-  document.getElementById("birthdayCountdown").innerText=
-  "Faltan "+days+"d "+hrs+"h "+mins+"m "+secs+"s 🎉";
+let target=new Date("2026-02-18T00:00:00");
+let now=new Date();
+let diff=target-now;
+if(diff<=0){
+document.getElementById('countdown').innerHTML="🎉 ¡Es su cumpleaños! 🎉";
+triggerBirthdayMode();
+return;
+}
+let days=Math.floor(diff/(1000*60*60*24));
+document.getElementById('countdown').innerHTML="Faltan "+days+" días 🎂";
 }
 setInterval(updateCountdown,1000);
+updateCountdown();
 
-/* Fireworks effect */
-const can=document.getElementById("fireworksCanvas");
-const ctx=can.getContext("2d");
-can.width=innerWidth; can.height=innerHeight;
-let particles = [];
+function createHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.style.left=Math.random()*100+"%";
+heart.innerHTML="❤️";
+heart.style.fontSize=(20+Math.random()*30)+"px";
+document.getElementById("hearts").appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},500);
+}
+createHearts();
 
-function createFirework(){
-  const x=Math.random()*can.width;
-  const y=Math.random()*can.height/2;
-  for(let i=0;i<60;i++){
-    particles.push({
-      x,y,
-      angle:Math.random()*Math.PI*2,
-      speed:Math.random()*4+2,
-      life:100
-    });
-  }
-}
-function drawFireworks(){
-  ctx.fillStyle="rgba(0,0,0,0.2)";
-  ctx.fillRect(0,0,can.width,can.height);
-  particles.forEach((p,i)=>{
-    p.x+=Math.cos(p.angle)*p.speed;
-    p.y+=Math.sin(p.angle)*p.speed;
-    p.life--;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,2,0,Math.PI*2);
-    ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
-    ctx.fill();
-    if(p.life<=0)particles.splice(i,1);
-  });
-}
-function runFireworks(){
-  const fInt=setInterval(createFirework,600);
-  const aInt=setInterval(drawFireworks,30);
-  setTimeout(()=>{
-    clearInterval(fInt); clearInterval(aInt);
-    ctx.clearRect(0,0,can.width,can.height);
-    document.getElementById("memeBirthday").style.display="none";
-  },10000);
-}
-
-/* Automatic trigger */
-function checkBirthdayMode(){
-  if(new Date()>=bDay){
-    document.getElementById("memeBirthday").style.display="block";
-    runFireworks();
-  }
-}
-checkBirthdayMode();
-
-/* Manual test button */
 function triggerBirthdayMode(){
-  document.getElementById("memeBirthday").style.display="block";
-  runFireworks();
+let meme=document.getElementById("meme");
+meme.style.display="block";
+for(let i=0;i<20;i++){
+let fw=document.createElement("div");
+fw.className="firework";
+fw.innerHTML="🎆";
+fw.style.left=Math.random()*100+"%";
+fw.style.top=Math.random()*100+"%";
+document.body.appendChild(fw);
+setTimeout(()=>fw.remove(),1000);
+}
+setTimeout(()=>meme.style.display="none",10000);
 }
 
-/* Quiz logic */
-function quiz(q,p){
-  const r=document.getElementById("quizResult");
-  if(q===1){
-    r.innerText=p==="Ricardo"
-      ?"Correcto 😎 yo inicié esto con estilo."
-      :"Mmm... pero quien realmente movió ficha fue Ricardo 😏";
-  }
-  if(q===2){
-    r.innerText=p==="Ricardo"
-      ?"Científicamente comprobado en laboratorio secreto 😌"
-      :"Intel falta para este título 😆";
-  }
-  if(q===3){
-    r.innerText=p==="Ricardo"
-      ?"Chef de sentimientos con toque mágico 😎"
-      :"Suele cocinar… pero Ricardo tiene sazón amoroso 😉";
-  }
-  if(q===4){
-    r.innerText=p==="Ricardo"
-      ?"Ricardo ama tan fuerte que hizo esta página entera ❤️"
-      :"Amor inmenso… pero no tan técnico 😌";
-  }
+const quizData=[
+{
+q:"¿Quién tiene la razón siempre?",
+a1:"Ricardo, claramente porque la lógica me respalda 😌",
+a2:"Estefany… pero solo cuando yo la dejo ganar 😈"
+},
+{
+q:"¿Quién ama más?",
+a1:"Ricardo porque soporta tus locuras y aún así sonríe 😏",
+a2:"Estefany pero porque yo la programé así 😎"
 }
+];
 
-/* Secret Popup */
-function openSecret(){
-  document.getElementById("secretPopup").classList.add("active");
-}
-function closeSecret(){
-  document.getElementById("secretPopup").classList.remove("active");
-}
-
+let quizDiv=document.getElementById("quiz");
+quizData.forEach(item=>{
+let div=document.createElement("div");
+div.innerHTML="<p>"+item.q+"</p>";
+let b1=document.createElement("button");
+b1.innerText=item.a1;
+let b2=document.createElement("button");
+b2.innerText=item.a2;
+div.appendChild(b1);
+div.appendChild(b2);
+quizDiv.appendChild(div);
+});
 </script>
 
 </body>
