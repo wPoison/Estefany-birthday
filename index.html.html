@@ -19,8 +19,7 @@ body{
 body::before{
   content:"";
   position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
+  inset:0;
   background:
     radial-gradient(circle at 20% 30%, #2b1055, transparent 40%),
     radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
@@ -28,29 +27,19 @@ body::before{
   z-index:-3;
 }
 
-/* ✨ ESTRELLAS */
-body::after{
-  content:"";
-  position:fixed;
-  width:100%;height:100%;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:0.4;
-  z-index:-2;
-}
-
 canvas{
   position:fixed;
-  top:0;
-  left:0;
+  inset:0;
   width:100%;
   height:100%;
-  pointer-events:none;
-  z-index:0;
+  pointer-events:none; /* 🔥 SOLUCIÓN DEFINITIVA BOTONES */
+  z-index:-1;
 }
 
-body > *:not(canvas){
+/* 🔥 aseguramos que todo el contenido esté encima */
+body > *{
   position:relative;
-  z-index:2;
+  z-index:5;
 }
 
 h1{
@@ -89,8 +78,6 @@ button{
   color:white;
   margin:10px;
   transition:0.3s;
-  position:relative;
-  z-index:3;
 }
 
 button:hover{
@@ -106,19 +93,19 @@ img{
 
 .hidden{display:none}
 
-/* 🎉 MENSAJE SORPRESA */
+/* 🎉 MENSAJE */
 #surprise{
   position:fixed;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   font-size:2.5em;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.85);
   padding:30px;
   border-radius:20px;
   box-shadow:0 0 40px gold;
   animation: surpriseAnim 4s forwards;
-  z-index:10;
+  z-index:20;
 }
 
 @keyframes surpriseAnim{
@@ -128,7 +115,7 @@ img{
   100%{opacity:0;}
 }
 
-/* 🎵 POPUP MUSICA */
+/* 🎵 POPUP */
 #musicPopup{
   position:fixed;
   bottom:20px;
@@ -139,7 +126,7 @@ img{
   padding:15px;
   box-shadow:0 0 20px #00f7ff;
   display:none;
-  z-index:20;
+  z-index:30;
 }
 
 #musicPopup img{
@@ -152,10 +139,9 @@ img{
   top:5px;
   right:10px;
   cursor:pointer;
-  font-size:18px;
 }
 
-/* 🎵 BARRA FALSA */
+/* 🎵 BARRA 4:12 EXACTOS */
 .progress{
   width:100%;
   height:6px;
@@ -169,7 +155,7 @@ img{
   height:100%;
   width:0%;
   background:#00c6ff;
-  animation: progressAnim 20s linear infinite;
+  animation: progressAnim 252s linear forwards; /* 4:12 = 252s */
 }
 
 @keyframes progressAnim{
@@ -207,33 +193,10 @@ iframe{pointer-events:none}
 </div>
 
 <div class="card">
-<h2>🎮 Quiz de Nuestro Amor</h2>
-
-<p>¿Quién ronca más?</p>
-<button onclick="alert('Respuesta correcta: definitivamente NO soy yo 😎')">Ricardo</button>
-<button onclick="alert('Confirmado científicamente 😂')">Estefany</button>
-
-<p>¿Quién es más dramática?</p>
-<button onclick="alert('Nivel novela turca activado 🎭')">Estefany</button>
-<button onclick="alert('Jamás… yo soy paz y equilibrio 😌')">Ricardo</button>
-
-<p>¿Quién ama más?</p>
-<button onclick="alert('Error 404: ambos se aman infinito ❤️')">Estefany</button>
-<button onclick="alert('Sistema detecta empate eterno 💞')">Ricardo</button>
-
-<p>¿Quién es el meme hecho persona?</p>
-<button onclick="alert('Mi pelirroja hermosa 😂❤️')">Estefany</button>
-<button onclick="alert('Yo solo soy el fan número 1 😌')">Ricardo</button>
-
-</div>
-
-<div class="card">
 <h2>🔒 Mensaje Secreto</h2>
 <button onclick="revealSecret()">Descubrir</button>
 <p id="secretMessage" class="hidden">
-Te amaré en todas las galaxias, universos y vidas.  
-Gracias por estos 15 meses increíbles.  
-Eres mi paz, mi caos bonito y mi infinito personal ❤️
+Te amaré en todas las galaxias, universos y vidas ❤️
 </p>
 </div>
 
@@ -253,7 +216,6 @@ Eres mi paz, mi caos bonito y mi infinito personal ❤️
 width="1"
 height="1"
 src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
-frameborder="0"
 allow="autoplay">
 </iframe>
 
@@ -301,18 +263,21 @@ function closeMusic(){
   }
 }
 
-/* MENSAJE */
 function revealSecret(){
   document.getElementById("secretMessage").classList.remove("hidden");
 }
 
-/* EFECTOS */
+/* 🌟 EFECTOS + CONSTELACION */
 const canvas=document.getElementById("effects");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
+
+function createHeart(){
+  particles.push({x:Math.random()*canvas.width,y:canvas.height,size:Math.random()*20+10,speed:Math.random()*2+1});
+}
 
 function createFirework(){
   let x=Math.random()*canvas.width;
@@ -322,12 +287,17 @@ function createFirework(){
   }
 }
 
-function createHeart(){
-  particles.push({x:Math.random()*canvas.width,y:canvas.height,size:Math.random()*20+10,speed:Math.random()*2+1});
+function drawConstellation(){
+  ctx.fillStyle="white";
+  ctx.font="50px Arial";
+  ctx.fillText("Estefany", canvas.width/2-150, canvas.height*0.2);
 }
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  drawConstellation();
+
   particles.forEach((p,i)=>{
     if(p.life){
       p.x+=p.dx;p.y+=p.dy;p.life--;
@@ -341,6 +311,7 @@ function animate(){
       if(p.y<0) particles.splice(i,1);
     }
   });
+
   requestAnimationFrame(animate);
 }
 
