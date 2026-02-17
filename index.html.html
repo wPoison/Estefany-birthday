@@ -12,131 +12,81 @@ body{
   color:white;
   text-align:center;
   overflow-x:hidden;
-  background:black;
-}
-
-/* 🌌 GALAXIA */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 30%, #2b1055, transparent 40%),
-    radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
-    radial-gradient(circle at 50% 50%, #000428, #000000 80%);
-  z-index:-3;
-}
-
-/* estrellas parpadeando */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:0.2;
-  z-index:-2;
+  background:radial-gradient(circle at bottom,#0d1b2a,#000);
+  transition:background 2s;
 }
 
 canvas{
   position:fixed;
   inset:0;
-  width:100%;
-  height:100%;
   pointer-events:none;
   z-index:-1;
 }
 
-/* TÍTULO */
 h1{
-  font-size:2.8em;
   margin-top:40px;
-  text-shadow:0 0 20px #fff;
+  text-shadow:0 0 20px white;
 }
 
-/* TARJETAS */
 .card{
   background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(12px);
   margin:30px auto;
   padding:25px;
   border-radius:20px;
   width:90%;
-  max-width:670px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  z-index:2;
-  position:relative;
+  max-width:650px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
 button{
-  padding:12px 25px;
+  padding:10px 20px;
   border:none;
-  border-radius:30px;
-  font-size:16px;
-  cursor:pointer;
+  border-radius:25px;
   background:#6c5ce7;
   color:white;
-  margin:8px;
+  cursor:pointer;
+  margin:6px;
   transition:0.3s;
 }
-
 button:hover{
-  transform:scale(1.1);
   background:#a29bfe;
+  transform:scale(1.08);
 }
 
-img{
-  width:250px;
-  border-radius:20px;
-  margin-top:15px;
-}
-
-.hidden{display:none;}
-
-/* —— constelación estilo texto —— */
-.constellation-point{
-  position:absolute;
-  width:5px;
-  height:5px;
-  background:white;
-  border-radius:50%;
-}
-
-/* —— POPUP MUSICA —— */
+/* ===== POPUP MUSICA ESQUINA ===== */
 #musicPopup{
   position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:290px;
+  bottom:20px;
+  right:20px;
+  width:220px;
   background:#111;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 0 25px #6c5ce7;
+  border-radius:15px;
+  padding:12px;
+  box-shadow:0 0 20px #6c5ce7;
   display:none;
   z-index:999;
+  font-size:13px;
 }
 
 #musicPopup img{
   width:100%;
-  border-radius:15px;
+  border-radius:10px;
 }
 
 #closeBtn{
   position:absolute;
-  top:8px;
-  right:12px;
+  top:5px;
+  right:8px;
   cursor:pointer;
-  font-size:18px;
-  color:white;
 }
 
-/* —— Barra progreso 4:12 —— */
 #progressBar{
   width:100%;
-  height:8px;
-  background:#222;
-  border-radius:5px;
-  margin-top:12px;
+  height:6px;
+  background:#333;
+  border-radius:4px;
+  margin-top:8px;
   overflow:hidden;
 }
 
@@ -145,68 +95,52 @@ img{
   width:0%;
   background:#6c5ce7;
 }
+
+/* estrellas fugaces */
+.shooting-star{
+  position:fixed;
+  width:2px;
+  height:80px;
+  background:linear-gradient(white,transparent);
+  animation:shoot 1s linear forwards;
+}
+@keyframes shoot{
+  from{transform:translate(0,0) rotate(45deg);}
+  to{transform:translate(300px,300px) rotate(45deg); opacity:0;}
+}
 </style>
 </head>
 <body>
 
+<canvas id="fireworks"></canvas>
+
 <h1>🎉 Feliz Cumpleaños Estefany ❤️</h1>
 
 <div class="card">
-<p>
-Mi amor por ti es más infinito que el universo 💫  
-Gracias por cada risa, abrazo y aventura juntos.
-</p>
+<p>Mi amor es más infinito que el universo 💫</p>
 </div>
 
 <div class="card">
-<h2>⏳ Nuestro Tiempo</h2>
-<p id="contador"></p>
+<h2>🎵 Nuestra Canción</h2>
+<button id="musicBtn">Reproducir 💖</button>
 </div>
 
-<div class="card">
-<h2>📸 Nuestra Foto</h2>
-<img src="https://i.imgur.com/qO4Hwxl.jpeg">
-</div>
-
-<div class="card">
-<h2>🎵 Canción especial</h2>
-<button id="musicBtn">Reproducir nuestra canción 💖</button>
-</div>
-
-<div class="card">
-<h2>🎮 Quiz romántico</h2>
-<p>¿Quién ama más?</p>
-<button onclick="alert('Respuesta: los dos por igual ❤️')">Estefany</button>
-<button onclick="alert('Respuesta: los dos por igual ❤️')">Ricardo</button>
-
-<p>¿Quién nos quita risas?</p>
-<button onclick="alert('Siempre tú con tus memes 😂❤️')">Estefany</button>
-<button onclick="alert('Yo con mis ocurrencias 😌')">Ricardo</button>
-
-<p>¿Quién propone mejores planes?</p>
-<button onclick="alert('Tú eres la creatividad 😍')">Estefany</button>
-<button onclick="alert('A veces yo también 😉')">Ricardo</button>
-</div>
-
-<div class="card">
-<h2>🔓 Mensaje secreto</h2>
-<button onclick="revealSecret()">Descubrir</button>
-<div id="secretMessage" class="hidden">
-<p>
-Nuestro amor es tranquilo, lleno de comprensión, risas infinitas y apoyo eterno ❤️
-</p>
-<img src="TU_LINK_IMGUR_AQUI">
-</div>
-</div>
-
-<!-- 🎵 POPUP -->
+<!-- Popup reducido -->
 <div id="musicPopup">
-  <span id="closeBtn" onclick="closePopup()">✖</span>
-  <img src="https://i.imgur.com/HFXl8KM.png">
-  <h3>Die With A Smile 💖</h3>
-  <p>Lady Gaga & Bruno Mars</p>
-  <div id="progressBar"><div id="progress"></div></div>
-  <p id="time">0:00 / 4:12</p>
+<span id="closeBtn" onclick="closePopup()">✖</span>
+<img src="https://i.imgur.com/HFXl8KM.png">
+<p>Die With A Smile</p>
+<div id="progressBar"><div id="progress"></div></div>
+<p id="time">0:00 / 4:12</p>
+</div>
+
+<div class="card">
+<h2>⚙️ Activar Animaciones</h2>
+<button onclick="toggleGalaxy()">Galaxia Movimiento</button>
+<button onclick="toggleStars()">Estrellas Fugaces</button>
+<button onclick="togglePulse()">Pulso Cósmico</button>
+<button onclick="toggleFireworks()">Fuegos Artificiales</button>
+<button onclick="toggleHearts()">Explosión Corazones</button>
 </div>
 
 <!-- YOUTUBE -->
@@ -215,40 +149,127 @@ src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
 frameborder="0" allow="autoplay"></iframe>
 
 <script>
-/* — CONTADOR — */
-const inicio = new Date("2024-11-09");
-const cnt = document.getElementById("contador");
-setInterval(()=>{
-  const ahora=new Date();
-  const diff=ahora-inicio;
-  const dias=Math.floor(diff/86400000);
-  cnt.innerHTML = dias+" días juntos ❤️";
-},1000);
 
-/* — CORAZONES LLUVIA — */
-setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},500);
+/* ===== VARIABLES ===== */
+let galaxyOn=false;
+let starsOn=false;
+let pulseOn=false;
+let fireworksOn=false;
+let heartsOn=false;
 
-/* — CONSTELACIÓN simple — */
-const letters="ESTEFANY";
-for(let i=0; i<letters.length; i++){
-  const p=document.createElement("div");
-  p.className="constellation-point";
-  p.style.top = 50 + i*30 + "px";
-  p.style.left = 30 + i*40 + "vw";
-  document.body.appendChild(p);
+/* ===== GALAXIA MOVIMIENTO ===== */
+function toggleGalaxy(){
+  galaxyOn=!galaxyOn;
+  if(galaxyOn){
+    document.body.style.animation="galaxyMove 10s infinite alternate";
+  }else{
+    document.body.style.animation="none";
+  }
+}
+const style=document.createElement("style");
+style.innerHTML=`
+@keyframes galaxyMove{
+  from{background-position:0 0;}
+  to{background-position:100px 100px;}
+}`;
+document.head.appendChild(style);
+
+/* ===== ESTRELLAS FUGACES ===== */
+let starInterval;
+function toggleStars(){
+  starsOn=!starsOn;
+  if(starsOn){
+    starInterval=setInterval(()=>{
+      const star=document.createElement("div");
+      star.className="shooting-star";
+      star.style.top=Math.random()*window.innerHeight+"px";
+      star.style.left=Math.random()*window.innerWidth+"px";
+      document.body.appendChild(star);
+      setTimeout(()=>star.remove(),1000);
+    },1500);
+  }else clearInterval(starInterval);
 }
 
-/* — MUSICA — */
-let player, playing=false;
-let progressSec=0;
+/* ===== PULSO COSMICO ===== */
+function togglePulse(){
+  pulseOn=!pulseOn;
+  if(pulseOn){
+    document.body.style.animation="pulse 3s infinite";
+  }else{
+    document.body.style.animation="none";
+  }
+}
+const pulseStyle=document.createElement("style");
+pulseStyle.innerHTML=`
+@keyframes pulse{
+0%{filter:brightness(1);}
+50%{filter:brightness(1.3);}
+100%{filter:brightness(1);}
+}`;
+document.head.appendChild(pulseStyle);
+
+/* ===== FUEGOS ARTIFICIALES ===== */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+
+function createFirework(){
+  for(let i=0;i<50;i++){
+    particles.push({
+      x:canvas.width/2,
+      y:canvas.height/2,
+      angle:Math.random()*2*Math.PI,
+      speed:Math.random()*5+2,
+      life:100
+    });
+  }
+}
+
+function animateFireworks(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=Math.cos(p.angle)*p.speed;
+    p.y+=Math.sin(p.angle)*p.speed;
+    p.life--;
+    ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
+    ctx.fillRect(p.x,p.y,3,3);
+  });
+  particles=particles.filter(p=>p.life>0);
+  if(fireworksOn) requestAnimationFrame(animateFireworks);
+}
+
+function toggleFireworks(){
+  fireworksOn=!fireworksOn;
+  if(fireworksOn){
+    createFirework();
+    animateFireworks();
+  }
+}
+
+/* ===== EXPLOSION CORAZONES CLICK ===== */
+function toggleHearts(){
+  heartsOn=!heartsOn;
+}
+document.addEventListener("click",(e)=>{
+  if(!heartsOn) return;
+  for(let i=0;i<15;i++){
+    const heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.style.position="fixed";
+    heart.style.left=e.clientX+"px";
+    heart.style.top=e.clientY+"px";
+    heart.style.animation="shoot 1s linear forwards";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1000);
+  }
+});
+
+/* ===== MUSICA ===== */
+let player, playing=false, progressSec=0;
 const total=252;
+
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
@@ -258,7 +279,7 @@ function onYouTubeIframeAPIReady(){
 }
 
 document.getElementById("musicBtn").addEventListener("click",()=>{
-  if(player && !playing){
+  if(!playing){
     player.playVideo();
     document.getElementById("musicPopup").style.display="block";
     playing=true;
@@ -266,10 +287,10 @@ document.getElementById("musicBtn").addEventListener("click",()=>{
       if(progressSec<=total){
         const pct=(progressSec/total)*100;
         document.getElementById("progress").style.width=pct+"%";
-        const min=Math.floor(progressSec/60);
-        let sec=progressSec%60;
-        if(sec<10) sec="0"+sec;
-        document.getElementById("time").innerText=min+":"+sec+" / 4:12";
+        let m=Math.floor(progressSec/60);
+        let s=progressSec%60;
+        if(s<10)s="0"+s;
+        document.getElementById("time").innerText=m+":"+s+" / 4:12";
         progressSec++;
       } else clearInterval(interval);
     },1000);
@@ -278,12 +299,8 @@ document.getElementById("musicBtn").addEventListener("click",()=>{
 
 function closePopup(){
   document.getElementById("musicPopup").style.display="none";
-  if(player){ player.pauseVideo(); playing=false; }
-}
-
-/* — MENSAJE — */
-function revealSecret(){
-  document.getElementById("secretMessage").classList.remove("hidden");
+  player.pauseVideo();
+  playing=false;
 }
 </script>
 
