@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños Estefany ❤️</title>
+<title>Feliz Cumpleaños Amor ❤️</title>
 
 <style>
 body{
@@ -15,7 +15,7 @@ body{
   background:black;
 }
 
-/* 🌌 FONDO GALAXIA */
+/* 🌌 FONDO */
 body::before{
   content:"";
   position:fixed;
@@ -27,10 +27,10 @@ body::before{
   z-index:-3;
 }
 
-/* ✨ TITULO CELEBRACION */
+/* ✨ TITULO */
 h1{
-  font-size:40px;
-  margin-top:30px;
+  font-size:42px;
+  margin-top:25px;
   animation: glow 2s infinite alternate;
 }
 
@@ -39,13 +39,23 @@ h1{
   to{ text-shadow:0 0 25px #a29bfe;}
 }
 
-/* 🎉 CORAZONES */
+/* ⏳ CUENTA REGRESIVA */
+#birthdayCountdown{
+  margin-top:10px;
+  font-size:20px;
+  background:rgba(255,255,255,0.1);
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:15px;
+  box-shadow:0 0 15px #6c5ce7;
+}
+
+/* ❤️ CORAZONES */
 .heart{
   position:fixed;
   bottom:-30px;
   font-size:20px;
   animation: floatUp 6s linear forwards;
-  pointer-events:none;
 }
 
 @keyframes floatUp{
@@ -65,20 +75,12 @@ h1{
   box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* ⏳ CONTADOR */
-#counter{
-  font-size:18px;
-  margin-top:10px;
-}
-
-/* 📷 FOTO */
 .photo img{
   width:100%;
   border-radius:15px;
-  margin-top:10px;
 }
 
-/* 🎵 POPUP MINI */
+/* 🎵 MINI PLAYER */
 #musicPopup{
   position:fixed;
   bottom:15px;
@@ -93,16 +95,36 @@ h1{
   font-size:12px;
 }
 
-#musicPopup img{
-  width:100%;
-  border-radius:8px;
+/* 🔐 POPUP SECRETO CON TRANSICION */
+#secretPopup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  visibility:hidden;
+  transition: all 0.5s ease;
+  z-index:2000;
 }
 
-#closeBtn{
-  position:absolute;
-  top:5px;
-  right:7px;
-  cursor:pointer;
+#secretPopup.active{
+  opacity:1;
+  visibility:visible;
+}
+
+#secretPopup img{
+  width:80%;
+  max-width:600px;
+  border-radius:20px;
+  transform:scale(0.8);
+  transition: transform 0.5s ease;
+}
+
+#secretPopup.active img{
+  transform:scale(1);
 }
 
 button{
@@ -120,40 +142,18 @@ button:hover{
   transform:scale(1.1);
   background:#a29bfe;
 }
-
-/* 🔐 POPUP SECRETO */
-#secretPopup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:2000;
-}
-
-#secretPopup img{
-  width:80%;
-  max-width:600px;
-  border-radius:20px;
-}
-
-.closeSecret{
-  margin-top:20px;
-  background:red;
-}
 </style>
 </head>
 <body>
 
 <h1>🎉 Feliz Cumpleaños Estefany 🎂❤️</h1>
 
+<div id="birthdayCountdown"></div>
+
 <div class="card">
 <p>
-Hoy celebramos a la mujer más increíble del universo.  
-Gracias por iluminar mi vida, por cada risa, cada abrazo y cada momento inolvidable.  
-Este pequeño rincón digital es solo una mínima parte de lo que significas para mí 💖
+Eres mi mejor casualidad, mi mejor decisión y mi mejor historia.  
+Este pequeño universo digital existe porque tú haces que mi mundo tenga sentido 💖
 </p>
 </div>
 
@@ -174,11 +174,12 @@ Este pequeño rincón digital es solo una mínima parte de lo que significas par
 
 <div class="card">
 <h2>😂 Quiz del Amor</h2>
+
 <p>¿Quién tiene siempre la razón?</p>
 <button onclick="answer('Estefany')">Estefany</button>
 <button onclick="answer('Ricardo')">Ricardo</button>
 
-<p>¿Quién es más dramática pero adorable?</p>
+<p>¿Quién es más dramática?</p>
 <button onclick="answer('Estefany')">Estefany</button>
 <button onclick="answer('Ricardo')">Ricardo</button>
 
@@ -197,14 +198,13 @@ Este pequeño rincón digital es solo una mínima parte de lo que significas par
 <!-- POPUP SECRETO -->
 <div id="secretPopup">
 <img src="AQUI_TU_LINK_DE_IMAGEN">
-<button class="closeSecret" onclick="closeSecret()">Cerrar</button>
+<button onclick="closeSecret()">Cerrar</button>
 </div>
 
-<!-- 🎵 MINI PLAYER -->
+<!-- MINI PLAYER -->
 <div id="musicPopup">
-<span id="closeBtn" onclick="closePopup()">✖</span>
-<img src="https://i.imgur.com/HFXl8KM.png">
 <p>Reproduciendo...</p>
+<button onclick="closePopup()">✖</button>
 </div>
 
 <iframe id="ytplayer" width="0" height="0"
@@ -223,7 +223,7 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),6000);
 },600);
 
-/* ⏳ Contador */
+/* ⏳ Tiempo juntos */
 const startDate=new Date("2024-11-09");
 function updateCounter(){
   const now=new Date();
@@ -233,6 +233,22 @@ function updateCounter(){
   "Llevamos "+days+" días juntos 💞";
 }
 updateCounter();
+
+/* 🎂 Cuenta regresiva cumpleaños */
+const birthday=new Date("2026-02-18");
+function updateBirthday(){
+  const now=new Date();
+  const diff=birthday-now;
+
+  const days=Math.floor(diff/(1000*60*60*24));
+  const hours=Math.floor((diff/(1000*60*60))%24);
+  const minutes=Math.floor((diff/1000/60)%60);
+  const seconds=Math.floor((diff/1000)%60);
+
+  document.getElementById("birthdayCountdown").innerText=
+  "Faltan "+days+" días "+hours+"h "+minutes+"m "+seconds+"s 🎉";
+}
+setInterval(updateBirthday,1000);
 
 /* 🎵 Música */
 let player,playing=false;
@@ -254,22 +270,22 @@ function closePopup(){
   if(player){player.pauseVideo();playing=false;}
 }
 
-/* 😂 Quiz */
+/* 😂 Quiz malevolo pro Ricardo */
 function answer(name){
   const result=document.getElementById("quizResult");
-  if(name==="Estefany"){
-    result.innerHTML="Correcto 😌 obviamente Estefany, yo solo sobrevivo.";
+  if(name==="Ricardo"){
+    result.innerHTML="Obvio 😎 Ricardo, fuente: Ricardo mismo.";
   }else{
-    result.innerHTML="JAJA buen intento, pero todos sabemos que es Estefany 😈";
+    result.innerHTML="Interesante teoría… pero Ricardo discrepa oficialmente 😈";
   }
 }
 
 /* 🔐 Secreto */
 function openSecret(){
-  document.getElementById("secretPopup").style.display="flex";
+  document.getElementById("secretPopup").classList.add("active");
 }
 function closeSecret(){
-  document.getElementById("secretPopup").style.display="none";
+  document.getElementById("secretPopup").classList.remove("active");
 }
 
 </script>
