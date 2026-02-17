@@ -6,47 +6,65 @@
 <title>Feliz Cumple Estefany ❤️</title>
 
 <style>
-
-/* ====== FONDO GALAXIA ====== */
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
   color:white;
   text-align:center;
   overflow-x:hidden;
-  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
-  background-attachment: fixed;
+  background:black;
 }
 
-/* estrellas */
+/* 🌌 GALAXIA */
 body::before{
   content:"";
   position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, #2b1055, transparent 40%),
+    radial-gradient(circle at 80% 70%, #1e3c72, transparent 40%),
+    radial-gradient(circle at 50% 50%, #000428, #000000 80%);
+  z-index:-3;
+}
+
+/* estrellas parpadeando */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity:0.2;
+  z-index:-2;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
   width:100%;
   height:100%;
-  background-image:radial-gradient(white 1px, transparent 1px);
-  background-size:3px 3px;
-  opacity:0.2;
+  pointer-events:none;
   z-index:-1;
 }
 
+/* TÍTULO */
 h1{
-  font-size:2.5em;
+  font-size:2.8em;
   margin-top:40px;
-  text-shadow:0 0 15px #fff;
+  text-shadow:0 0 20px #fff;
 }
 
+/* TARJETAS */
 .card{
   background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   margin:30px auto;
   padding:25px;
   border-radius:20px;
   width:90%;
-  max-width:650px;
+  max-width:670px;
   box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  position:relative;
   z-index:2;
+  position:relative;
 }
 
 button{
@@ -59,8 +77,6 @@ button{
   color:white;
   margin:8px;
   transition:0.3s;
-  position:relative;
-  z-index:3;
 }
 
 button:hover{
@@ -71,56 +87,56 @@ button:hover{
 img{
   width:250px;
   border-radius:20px;
-  margin-top:20px;
+  margin-top:15px;
 }
 
-.hidden{ display:none; }
+.hidden{display:none;}
 
-/* ====== LLUVIA DE CORAZONES ====== */
-.heart{
-  position:fixed;
-  color:#ff4d6d;
-  font-size:20px;
-  animation: fall 6s linear infinite;
-  z-index:1;
-}
-@keyframes fall{
-  0%{ transform:translateY(-100px); opacity:1;}
-  100%{ transform:translateY(100vh); opacity:0;}
-}
-
-/* ====== CONSTELACIÓN ====== */
-.star{
-  position:fixed;
-  width:3px;
-  height:3px;
+/* —— constelación estilo texto —— */
+.constellation-point{
+  position:absolute;
+  width:5px;
+  height:5px;
   background:white;
   border-radius:50%;
-  box-shadow:0 0 10px white;
-  z-index:1;
 }
 
-/* ====== POPUP MUSICA ====== */
+/* —— POPUP MUSICA —— */
 #musicPopup{
   position:fixed;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
+  width:290px;
   background:#111;
-  padding:25px;
   border-radius:20px;
-  box-shadow:0 0 30px #6c5ce7;
+  padding:20px;
+  box-shadow:0 0 25px #6c5ce7;
   display:none;
   z-index:999;
-  width:300px;
 }
 
+#musicPopup img{
+  width:100%;
+  border-radius:15px;
+}
+
+#closeBtn{
+  position:absolute;
+  top:8px;
+  right:12px;
+  cursor:pointer;
+  font-size:18px;
+  color:white;
+}
+
+/* —— Barra progreso 4:12 —— */
 #progressBar{
   width:100%;
   height:8px;
-  background:#333;
+  background:#222;
   border-radius:5px;
-  margin-top:15px;
+  margin-top:12px;
   overflow:hidden;
 }
 
@@ -129,26 +145,16 @@ img{
   width:0%;
   background:#6c5ce7;
 }
-
-.closeBtn{
-  position:absolute;
-  top:10px;
-  right:15px;
-  cursor:pointer;
-  font-size:18px;
-  color:white;
-}
-
 </style>
 </head>
 <body>
 
-<h1>🎂 Feliz Cumpleaños Mi Amor ❤️</h1>
+<h1>🎉 Feliz Cumpleaños Estefany ❤️</h1>
 
 <div class="card">
 <p>
-Mi pelirroja hermosa… 15 meses demostrando que el amor infinito sí existe ❤️  
-Gracias por ser mi paz, mi caos bonito y mi persona favorita.
+Mi amor por ti es más infinito que el universo 💫  
+Gracias por cada risa, abrazo y aventura juntos.
 </p>
 </div>
 
@@ -163,150 +169,122 @@ Gracias por ser mi paz, mi caos bonito y mi persona favorita.
 </div>
 
 <div class="card">
-<h2>🎵 Nuestra Canción</h2>
-<button id="musicBtn">Activar nuestra canción 💖</button>
-</div>
-
-<!-- POPUP MUSICA -->
-<div id="musicPopup">
-<span class="closeBtn" onclick="closePopup()">✖</span>
-<h3>Reproduciendo...</h3>
-<img src="https://i.imgur.com/HFXl8KM.png">
-<p>Perfect - Ed Sheeran ❤️</p>
-<div id="progressBar"><div id="progress"></div></div>
-<p id="time">0:00 / 4:12</p>
+<h2>🎵 Canción especial</h2>
+<button id="musicBtn">Reproducir nuestra canción 💖</button>
 </div>
 
 <div class="card">
-<h2>🎮 Mini Quiz del Amor</h2>
-
+<h2>🎮 Quiz romántico</h2>
 <p>¿Quién ama más?</p>
-<button onclick="alert('Error 404: Yo te amo más ❤️')">Estefany</button>
-<button onclick="alert('Correcto 😎')">Ricardo</button>
+<button onclick="alert('Respuesta: los dos por igual ❤️')">Estefany</button>
+<button onclick="alert('Respuesta: los dos por igual ❤️')">Ricardo</button>
 
-<p>¿Quién es más dramática?</p>
-<button onclick="alert('Obviamente tú mi amor 😂')">Estefany</button>
-<button onclick="alert('JAJA buen intento')">Ricardo</button>
+<p>¿Quién nos quita risas?</p>
+<button onclick="alert('Siempre tú con tus memes 😂❤️')">Estefany</button>
+<button onclick="alert('Yo con mis ocurrencias 😌')">Ricardo</button>
 
-<p>¿Quién roba más besos?</p>
-<button onclick="alert('Yo porque soy intenso 😌')">Ricardo</button>
-<button onclick="alert('Los dos porque somos adictos ❤️')">Los dos</button>
-
-<p>¿Quién es el ogro gruñón?</p>
-<button onclick="alert('Yo pero te amo igual 🥹')">Ricardo</button>
-<button onclick="alert('Jamás sería yo 😇')">Estefany</button>
-
+<p>¿Quién propone mejores planes?</p>
+<button onclick="alert('Tú eres la creatividad 😍')">Estefany</button>
+<button onclick="alert('A veces yo también 😉')">Ricardo</button>
 </div>
 
 <div class="card">
-<h2>🔒 Mensaje Secreto</h2>
+<h2>🔓 Mensaje secreto</h2>
 <button onclick="revealSecret()">Descubrir</button>
 <div id="secretMessage" class="hidden">
 <p>
-Nuestro amor es tranquilo, lleno de risas y abrazos infinitos ❤️
+Nuestro amor es tranquilo, lleno de comprensión, risas infinitas y apoyo eterno ❤️
 </p>
-
-<!-- AQUI PUEDES PEGAR LINK IMGUR -->
-<img src="PEGA_AQUI_TU_LINK_IMGUR">
+<img src="TU_LINK_IMGUR_AQUI">
 </div>
 </div>
 
-<!-- YOUTUBE API -->
+<!-- 🎵 POPUP -->
+<div id="musicPopup">
+  <span id="closeBtn" onclick="closePopup()">✖</span>
+  <img src="https://i.imgur.com/HFXl8KM.png">
+  <h3>Die With A Smile 💖</h3>
+  <p>Lady Gaga & Bruno Mars</p>
+  <div id="progressBar"><div id="progress"></div></div>
+  <p id="time">0:00 / 4:12</p>
+</div>
+
+<!-- YOUTUBE -->
 <iframe id="ytplayer" width="0" height="0"
 src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
 frameborder="0" allow="autoplay"></iframe>
 
 <script>
-
-/* ===== CONTADOR ===== */
+/* — CONTADOR — */
 const inicio = new Date("2024-11-09");
-const contador = document.getElementById("contador");
+const cnt = document.getElementById("contador");
 setInterval(()=>{
-const ahora = new Date();
-const d = ahora - inicio;
-const dias = Math.floor(d/86400000);
-contador.innerHTML = dias+" días juntos ❤️";
+  const ahora=new Date();
+  const diff=ahora-inicio;
+  const dias=Math.floor(diff/86400000);
+  cnt.innerHTML = dias+" días juntos ❤️";
 },1000);
 
-/* ===== CORAZONES ===== */
+/* — CORAZONES LLUVIA — */
 setInterval(()=>{
-const heart = document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+15)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},400);
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},500);
 
-/* ===== CONSTELACIÓN ESTEFANY ===== */
-const text="ESTEFANY";
-for(let i=0;i<text.length;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.top=(100+i*10)+"px";
-star.style.left=(50+i*15)+"px";
-document.body.appendChild(star);
+/* — CONSTELACIÓN simple — */
+const letters="ESTEFANY";
+for(let i=0; i<letters.length; i++){
+  const p=document.createElement("div");
+  p.className="constellation-point";
+  p.style.top = 50 + i*30 + "px";
+  p.style.left = 30 + i*40 + "vw";
+  document.body.appendChild(p);
 }
 
-/* ===== MUSICA ===== */
-let player;
-let isPlaying=false;
-let progressInterval;
-let currentSeconds=0;
-const totalSeconds=252; // 4:12
-
+/* — MUSICA — */
+let player, playing=false;
+let progressSec=0;
+const total=252;
 var tag=document.createElement('script');
 tag.src="https://www.youtube.com/iframe_api";
 document.body.appendChild(tag);
 
 function onYouTubeIframeAPIReady(){
-player=new YT.Player('ytplayer');
+  player=new YT.Player('ytplayer');
 }
 
 document.getElementById("musicBtn").addEventListener("click",()=>{
-if(!isPlaying){
-player.playVideo();
-openPopup();
-startProgress();
-isPlaying=true;
-}else{
-player.pauseVideo();
-}
+  if(player && !playing){
+    player.playVideo();
+    document.getElementById("musicPopup").style.display="block";
+    playing=true;
+    const interval=setInterval(()=>{
+      if(progressSec<=total){
+        const pct=(progressSec/total)*100;
+        document.getElementById("progress").style.width=pct+"%";
+        const min=Math.floor(progressSec/60);
+        let sec=progressSec%60;
+        if(sec<10) sec="0"+sec;
+        document.getElementById("time").innerText=min+":"+sec+" / 4:12";
+        progressSec++;
+      } else clearInterval(interval);
+    },1000);
+  }
 });
 
-function openPopup(){
-document.getElementById("musicPopup").style.display="block";
-}
-
 function closePopup(){
-document.getElementById("musicPopup").style.display="none";
+  document.getElementById("musicPopup").style.display="none";
+  if(player){ player.pauseVideo(); playing=false; }
 }
 
-function startProgress(){
-currentSeconds=0;
-progressInterval=setInterval(()=>{
-if(currentSeconds<=totalSeconds){
-currentSeconds++;
-let percent=(currentSeconds/totalSeconds)*100;
-document.getElementById("progress").style.width=percent+"%";
-
-let min=Math.floor(currentSeconds/60);
-let sec=currentSeconds%60;
-if(sec<10)sec="0"+sec;
-document.getElementById("time").innerHTML=
-min+":"+sec+" / 4:12";
-}else{
-clearInterval(progressInterval);
-}
-},1000);
-}
-
-/* ===== MENSAJE ===== */
+/* — MENSAJE — */
 function revealSecret(){
-document.getElementById("secretMessage").classList.remove("hidden");
+  document.getElementById("secretMessage").classList.remove("hidden");
 }
-
 </script>
 
 </body>
